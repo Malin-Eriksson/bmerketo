@@ -5,11 +5,21 @@
             <a class="link" asp-controller="Home" asp-action="Index">HOME</a>
             <a class="link" asp-controller="Products" asp-action="Index">PRODUCTS</a>
             <a class="link" asp-controller="Contact" asp-action="Index">CONTACT</a>
+
+        <!--Admin page, only visible for logged in administrators-->
+            @if (signInManager.IsSignedIn(User) && User.IsInRole("admin"))
+            {
+                <a class="link" asp-controller="Admin" asp-action="Index">Admin</a>
+            }
+            
         </nav>
         <nav class="menu-icons">
             <a class="link" asp-controller="Products" asp-action="Search"><i class="fa-regular fa-search"></i></a>
+
+        <!--Shows sign in and sign up if not logged in, and username and sign out if logged in.--> 
             @if(signInManager.IsSignedIn(User))
             {
+                <a asp-action="Index" asp-controller="Account" >@User.Identity?.Name</a>
                 <a class="link" asp-controller="Account" asp-action="SignOut">SIGN OUT</a>                
             } 
             else

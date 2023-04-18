@@ -9,8 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ShowcaseService>(); // new ShowcaseService()
 builder.Services.AddDbContext<IdentityContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDatabase")));
+builder.Services.AddScoped<SeedService>();
 builder.Services.AddScoped<AuthService>();
-builder.Services.AddDefaultIdentity<IdentityUser>(x => 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(x => 
 {
     x.SignIn.RequireConfirmedAccount = false;
     x.Password.RequiredLength = 8;
