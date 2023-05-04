@@ -1,4 +1,5 @@
 using bmerketo.Contexts;
+using bmerketo.Factories;
 using bmerketo.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,14 +10,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ShowcaseService>(); // new ShowcaseService()
 builder.Services.AddDbContext<IdentityContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDatabase")));
+builder.Services.AddDbContext<ProductContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("ProductDatabase")));
+builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<SeedService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<UserService>();
+
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(x => 
 {
     x.SignIn.RequireConfirmedAccount = false;
     x.Password.RequiredLength = 8;
     x.User.RequireUniqueEmail = false;
-  }).AddEntityFrameworkStores<IdentityContext>();
+  })
+    .AddEntityFrameworkStores<IdentityContext>()
+    .AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>();
 
 
 
