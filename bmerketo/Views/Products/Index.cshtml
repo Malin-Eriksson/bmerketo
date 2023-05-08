@@ -1,8 +1,34 @@
-﻿@model ProductsIndexViewModel
+﻿@{
+	ViewData["Title"] = "Products";
+
+	var products = await productService.GetAllAsync();
+}
+
+
+@if (products != null)
+{
+	foreach(var product in products)
+	{
+		<div class="container mb-3">
+			<div>@product.Name</div>
+			<div>@product.Price</div>
+			<div>@product.Description</div>
+		</div>
+		
+	}
+}
+
+
+
+
+
+
+
+@*@model ProductsIndexViewModel
 
 <div style="padding-top: 150px;" >
 
 	<partial name="/Views/Partials/_GridCollection.cshtml" model="@Model.All" />
 
-</div>
+</div>*@
 

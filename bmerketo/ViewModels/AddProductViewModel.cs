@@ -17,7 +17,7 @@ public class AddProductViewModel
 
 
 	[Display(Name = "Product description (optional)")]
-    public string Description { get; set; } = null!;
+    public string? Description { get; set; } = null!;
 
 
 	public static implicit operator ProductEntity(AddProductViewModel addProductViewModel)
@@ -29,6 +29,8 @@ public class AddProductViewModel
 			Description = addProductViewModel.Description
 		};
 	}
+
+
 
 
 }

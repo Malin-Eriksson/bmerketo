@@ -14,6 +14,7 @@ public class ProductService
 	{
 		_context = context;
 	}
+
 	public async Task<bool> CreateAsync(AddProductViewModel addProductViewModel)
 	{
 		try
@@ -30,6 +31,8 @@ public class ProductService
 		}
 		
 	}
+
+
 	public async Task<IEnumerable<ProductModel>> GetAllAsync()
 	{
 		var products = new List<ProductModel>();

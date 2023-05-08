@@ -20,23 +20,26 @@ namespace bmerketo.Controllers
 			{
 				All = new GridCollectionViewModel
 				{
-					Title = "All Products",
-					Categories = new List<string> { "All", "News", "Spring favorites" }
+					Title = "Products",
+					Categories = new List<string> { "All", "New", "Popular", "Featured" }
 				}
 			};
 			
 			return View(viewModel);
 		}
+
 		public IActionResult Search()
 		{
 			ViewData["Title"] = "Search for products";
 			return View();
 		}
 
+
 		public IActionResult AddProduct()
 		{
 			return View();
 		}
+
 
 		[HttpPost]
 		public async Task<IActionResult> AddProduct(AddProductViewModel addProductViewModel)
