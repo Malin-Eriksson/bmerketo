@@ -1,22 +1,20 @@
 ﻿@model UserSignInViewModel
-<div>
-	<a class="link" asp-controller="Account" asp-action="SignUp">SIGN UP</a>
-</div>
 
 
-<div class="sign-up d-flex justify-content-center">
-	<h1 class="display-4">Sign Up for new Account</h1>
+
+<div class="container sign-up mt-10 d-flex justify-content-center">
+	<h1 class="display-4">Sign In</h1>
 	<form method="post" class="col-10 col-xl-6" novalidate>
 
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 		<div class="mb-3">
-			<label asp-for="Email">Email</label>
+				<label asp-for="Email">Email* </label><a class="link" asp-controller="Account" asp-action="SignUp"> Don't have an account yet? </a>
 			<input asp-for="Email" class="form-control" />
 			<small class="text-danger"><span asp-validation-for="Email"></span></small>
 		</div>
 		<div class="mb-3">
-			<label asp-for="Password">Password</label>
+			<label asp-for="Password">Password*</label>
 			<input asp-for="Password" class="form-control" />
 			<small class="text-danger"><span asp-validation-for="Password"></span></small>
 		</div>
@@ -27,4 +25,5 @@
 		</div>
 	</form>
 </div>
+
 

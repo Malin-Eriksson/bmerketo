@@ -1,11 +1,22 @@
-﻿using bmerketo.Models.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using bmerketo.Models;
+using bmerketo.Models.Entities;
 
 namespace bmerketo.ViewModels;
 
 public class AddProductViewModel
 {
-    [Required(ErrorMessage = "You have to enter a product name")]
+
+	public AddProductFormModel Form { get; set; } = new AddProductFormModel();
+
+	public IEnumerable<ProductCategoryModel> ProductCategories { get; set; } = null!;
+
+
+
+
+
+
+
+/*    [Required(ErrorMessage = "You have to enter a product name")]
     [Display(Name = "Product name *")]
     public string Name { get; set; } = null!;
 
@@ -20,15 +31,23 @@ public class AddProductViewModel
     public string? Description { get; set; } = null!;
 
 
+	[Display(Name = "Product category (optional)")]
+	public int? CategoryId { get; set; } 
+
+
+
+
 	public static implicit operator ProductEntity(AddProductViewModel addProductViewModel)
 	{
 		return new ProductEntity
 		{
 			Name = addProductViewModel.Name,
 			Price = addProductViewModel.Price,
-			Description = addProductViewModel.Description
+			Description = addProductViewModel.Description,
+			CategoryId = addProductViewModel.CategoryId
+
 		};
-	}
+	}*/
 
 
 

@@ -1,6 +1,8 @@
 ﻿using bmerketo.Services;
 using bmerketo.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace bmerketo.Controllers
 {
@@ -14,18 +16,10 @@ namespace bmerketo.Controllers
 			_productService = productService;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			var viewModel = new ProductsIndexViewModel
-			{
-				All = new GridCollectionViewModel
-				{
-					Title = "Products",
-					Categories = new List<string> { "All", "New", "Popular", "Featured" }
-				}
-			};
-			
-			return View(viewModel);
+			var products = await _productService.GetAllAsync();			
+			return View(products);
 		}
 
 		public IActionResult Search()
@@ -35,6 +29,7 @@ namespace bmerketo.Controllers
 		}
 
 
+		[Authorize(Roles = "admin")]
 		public IActionResult AddProduct()
 		{
 			return View();
@@ -42,16 +37,14 @@ namespace bmerketo.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> AddProduct(AddProductViewModel addProductViewModel)
+		public async Task<IActionResult> Add(AddProductViewModel viewModel)
 		{
 			if (ModelState.IsValid)
 			{
-				if (await _productService.CreateAsync(addProductViewModel))
-					return RedirectToAction("Index", "Products");
-
-				ModelState.AddModelError("", "Something went wrong when creating the product");
+				await _productService.CreateAsync(viewModel.Form);
+				return RedirectToAction("Index");
 			}
-			return View();
+			return View(viewModel);
 		}
 
 

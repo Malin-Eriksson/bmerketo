@@ -8,22 +8,31 @@
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div> 
 
 			<div class="mb-3 pt-50">
-				<label asp-for="Name" class="form-label"></label>
-				<input asp-for="Name" class="form-control" />
-				<small><span asp-validation-for="Name" class="text-danger"></span></small>
+				<label asp-for="Form.Name" class="form-label"></label>
+				<input asp-for="Form.Name" class="form-control" />
+				<small><span asp-validation-for="Form.Name" class="text-danger"></span></small>
 			</div>
 
 			<div class="mb-3">
-				<label asp-for="Price" class="form-label"></label>
-				<input asp-for="Price" class="form-control" />
-				<small><span asp-validation-for="Price" class="text-danger"></span></small>
+				<label asp-for="Form.Price" class="form-label"></label>
+				<input asp-for="Form.Price" class="form-control" />
+				<small><span asp-validation-for="Form.Price" class="text-danger"></span></small>
 			</div>
 
 			<div class="mb-3">
-				<label asp-for="Description" class="form-label"></label>
-				<textarea asp-for="Description" class="form-control" rows="4" ></textarea>
-				<small><span asp-validation-for="Description" class="text-danger"></span></small>
-			</div>		
+				<label asp-for="Form.Description" class="form-label"></label>
+				<textarea asp-for="Form.Description" class="form-control" rows="4"></textarea>
+				<small><span asp-validation-for="Form.Description" class="text-danger"></span></small>
+			</div>	
+			
+			<div class="mb-3">
+				<select asp-for="Form.Category">
+					@foreach(var category in Model.ProductCategories)
+					{
+						<option value="@category.Value">@category.Name</option>
+					}
+				</select>
+			</div>
 			
 			<div class="grid mt-2">
 				<button type="submit">ADD PRODUCT</button>

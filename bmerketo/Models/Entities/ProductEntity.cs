@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace bmerketo.Models.Entities;
 
-public class ProductEntity
+public partial class ProductEntity
 {
-	public int Id { get; set; }
+	[Key]
+	public string ArticleNumber { get; set; } = null!;
 	public string Name { get; set; } = null!;
 
 	[Column(TypeName = "money")]
@@ -12,15 +14,23 @@ public class ProductEntity
 
 	public string? Description { get; set; } = null!;
 
+	public int? CategoryId { get; set; }
+
+	public ProductCategoryEntity Category { get; set; } = null!;
+
+	
+
 
 	public static implicit operator ProductModel(ProductEntity entity)
 	{
 		return new ProductModel
 		{
-			Id = entity.Id,
+			ArticleNumber = entity.ArticleNumber,
 			Name = entity.Name,
 			Price = entity.Price,
-			Description = entity.Description
+			Description = entity.Description,
+			CategoryId = entity.CategoryId
+			
 		};
 	}
 	
