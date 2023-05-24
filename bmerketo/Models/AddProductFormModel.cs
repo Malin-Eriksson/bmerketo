@@ -5,6 +5,10 @@ namespace bmerketo.Models;
 
 public class AddProductFormModel
 {
+	[Required(ErrorMessage = "You have to enter an article number")]
+	[Display(Name = "Article number *")]
+	public string ArticleNumber { get; set; } = null!;
+    
     [Required(ErrorMessage = "You have to enter a product name")]
     [Display(Name = "Product name *")]
     public string Name { get; set; } = null!;
@@ -19,18 +23,29 @@ public class AddProductFormModel
     public string? Description { get; set; } = null!;
 
 
-    [Display(Name = "Product category (optional)")]
-    public ProductCategoryModel Category { get; set; } = new ProductCategoryModel();
+
+
+
+    [DataType(DataType.Upload)]
+    public IFormFile Image { get; set; } = null!;
 
     public static implicit operator ProductEntity(AddProductFormModel model)
     {
-        return new ProductEntity
+
+
+        var entity = new ProductEntity
 		{
+            ArticleNumber = model.ArticleNumber,
 			Name = model.Name,
 			Description = model.Description,
-			Price = model.Price,
+			Price = model.Price
 			
 		};
+
+        if (model.Image != null)
+            entity.ImageUrl = $"{Guid.NewGuid()}_{model.Image?.FileName}";
+
+        return entity;
 
 	}
 

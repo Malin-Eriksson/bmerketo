@@ -8,7 +8,7 @@ public class AddProductViewModel
 
 	public AddProductFormModel Form { get; set; } = new AddProductFormModel();
 
-	public IEnumerable<ProductCategoryModel> ProductCategories { get; set; } = null!;
+	public IEnumerable<TagModel> Tags { get; set; } = null!;
 
 
 

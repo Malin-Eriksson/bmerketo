@@ -1,9 +1,22 @@
-﻿@model AdminViewModel
+﻿@inject AdminService adminService
+
+@model AdminViewModel
 
 @{ ViewData["Title"] = "Admin - Dashboard"; }
 
 
-<div class="container mt-50">
-	<h1>TEST</h1>
-	<a class="link" asp-controller="Products" asp-action="AddProduct"> Add new product</a>
+<div>
+	@foreach(var user in await adminService.GetUsersAsync())
+	{
+		<div>
+			<div>@user.Email 
+				(
+					@foreach (var roleName in user.RoleNames)
+					{
+						<span>@roleName</span>
+					}
+				)
+			</div>
+		</div>	
+	}
 </div>

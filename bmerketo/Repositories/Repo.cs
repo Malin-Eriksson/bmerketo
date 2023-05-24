@@ -1,35 +1,90 @@
 ﻿using bmerketo.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace bmerketo.Repositories;
 
-public class Repo<TEntity> where TEntity : class
+public abstract class Repo<TEntity> where TEntity : class
 {
-	private readonly ProductContext _context;
+	private readonly DataContext _context;
 
-	public Repo(ProductContext context)
+	public Repo(DataContext context)
 	{
 		_context = context;
 	}
 
-	public async Task<TEntity> AddAsync(TEntity entity)
+	public virtual async Task<TEntity> AddAsync(TEntity entity)
 	{
-		_context.Set<TEntity>().Add(entity);
-		await _context.SaveChangesAsync();
+		try
+		{
+			_context.Set<TEntity>().Add(entity);
+			await _context.SaveChangesAsync();
 
-		return entity;
+			return entity;
+
+		}
+		catch (Exception ex) { Debug.WriteLine(ex.Message); }
+		return null!;
+
 	}
 
-	public async Task<IEnumerable<TEntity>> GetAllAsync()
+	public virtual async Task<TEntity> UpdateAsync(TEntity entity)
 	{
-		return await _context.Set<TEntity>().ToListAsync();
+		try
+		{
+			_context.Set<TEntity>().Update(entity);
+			await _context.SaveChangesAsync();
+
+			return entity;
+		}
+		catch (Exception ex) { Debug.WriteLine(ex.Message); }
+		return null!;
+
 	}
 
-	public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
+	public virtual async Task<TEntity> DeleteAsync(TEntity entity)
 	{
-		var item = await _context.Set<TEntity>().FirstOrDefaultAsync(predicate);
-		return item!;
+		try
+		{
+			_context.Set<TEntity>().Remove(entity);
+			await _context.SaveChangesAsync();
+
+			return entity;
+		}
+		catch (Exception ex) { Debug.WriteLine(ex.Message); }
+		return null!;
+
 	}
+
+	public virtual async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
+	{
+		try
+		{
+			var entity = await _context.Set<TEntity>().FirstOrDefaultAsync(expression);
+			if (entity != null)
+			return entity!;
+		}
+		catch (Exception ex) { Debug.WriteLine(ex.Message); }
+		return null!;
+
+	}
+
+
+
+	public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+	{
+		try
+		{
+			var entities = await _context.Set<TEntity>().ToListAsync();
+			if (entities != null)
+				return entities;
+		}
+		catch (Exception ex) { Debug.WriteLine(ex.Message); }
+		return null!;
+
+	}
+
+
 
 }

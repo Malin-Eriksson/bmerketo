@@ -10,35 +10,64 @@ namespace bmerketo.Services;
 
 public class ProductService
 {
-	private readonly ProductContext _context;
-	private readonly ProductCategoryService _categoryService;
-	private readonly Repo<ProductEntity> _productService;
+	private readonly DataContext _context;
+	private readonly TagService _categoryService;
 
-	public ProductService(ProductCategoryService categoryService, ProductContext context, Repo<ProductEntity> productService)
+	private readonly ProductRepo _productService;
+	private readonly IWebHostEnvironment _webHostEnvironment;
+
+	public ProductService(TagService categoryService, DataContext context, IWebHostEnvironment webHostEnvironment, ProductRepo productService)
 	{
 		_categoryService = categoryService;
 		_context = context;
+		_webHostEnvironment = webHostEnvironment;
 		_productService = productService;
 	}
 
 
 
-	public async Task CreateAsync(AddProductFormModel form)
+	public async Task<ProductModel> CreateAsync(AddProductFormModel form) 
 	{
 
-		var category = await _categoryService.GetOrCreateAsync(form.Category);
+			//var tag = await _categoryService.GetOrCreateAsync(form.Tag);
 
-		ProductEntity product = form;
-		product.CategoryId = category.Id;
+			ProductEntity product = form;
+			//product.Tag = tag.Id;
+
+			await _productService.AddAsync(product);
+
+			return product;
+
+	}
+
+
+/*	public async Task<IEnumerable<ProductEntity>> GetAllAsync()
+	{
+		return await _productRepo.GetAllAsync();
+	}*/
+
+
+	public async Task<bool> UploadImageAsync(ProductModel product, IFormFile image)
+	{
+		try
+		{
+			string imagePath = $"{_webHostEnvironment.WebRootPath}/images/products/{product.ImageUrl}";
+			await image.CopyToAsync(new FileStream(imagePath, FileMode.Create));
+			return true;
+		}
+		catch { return false; }
+	}
+
+	public async Task<IEnumerable<ProductModel>> GetAllAsync()
+	{
+		var items = await _productService.GetAllAsync();
+		var list = new List<ProductModel>();
+		foreach (var item in items)		
+			list.Add(item);
+		return list;
 		
-		await _productService.AddAsync(product);		
 	}
 
-
-	public async Task<IEnumerable<ProductEntity>> GetAllAsync()
-	{
-		return await _productService.GetAllAsync();
-	}
 }
 
 

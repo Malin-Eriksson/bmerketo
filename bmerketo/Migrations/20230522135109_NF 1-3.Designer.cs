@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using bmerketo.Contexts;
 
@@ -11,9 +12,11 @@ using bmerketo.Contexts;
 namespace bmerketo.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    partial class IdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20230522135109_NF 1-3")]
+    partial class NF13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,10 +89,6 @@ namespace bmerketo.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -141,10 +140,6 @@ namespace bmerketo.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -237,15 +232,12 @@ namespace bmerketo.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StreetName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -253,24 +245,13 @@ namespace bmerketo.Migrations
                     b.ToTable("AddressEntity");
                 });
 
-            modelBuilder.Entity("bmerketo.Models.Entities.UserAddressEntity", b =>
+            modelBuilder.Entity("bmerketo.Models.Entities.UserProfileEntity", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
-
-                    b.HasKey("UserId", "AddressId");
-
-                    b.HasIndex("AddressId");
-
-                    b.ToTable("UserAddressEntity");
-                });
-
-            modelBuilder.Entity("bmerketo.Models.Entities.UserEntity", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("Company")
                         .HasColumnType("nvarchar(max)");
@@ -283,10 +264,14 @@ namespace bmerketo.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProfilePicture")
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("UserEntity");
+                    b.HasKey("UserId");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("UserProfiles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -340,16 +325,14 @@ namespace bmerketo.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("bmerketo.Models.Entities.UserAddressEntity", b =>
+            modelBuilder.Entity("bmerketo.Models.Entities.UserProfileEntity", b =>
                 {
                     b.HasOne("bmerketo.Models.Entities.AddressEntity", "Address")
                         .WithMany("Users")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddressId");
 
-                    b.HasOne("bmerketo.Models.Entities.UserEntity", "User")
-                        .WithMany("Users")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -360,11 +343,6 @@ namespace bmerketo.Migrations
                 });
 
             modelBuilder.Entity("bmerketo.Models.Entities.AddressEntity", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("bmerketo.Models.Entities.UserEntity", b =>
                 {
                     b.Navigation("Users");
                 });

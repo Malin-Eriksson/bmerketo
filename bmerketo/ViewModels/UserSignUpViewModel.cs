@@ -27,32 +27,50 @@ public class UserSignUpViewModel
 
     public string? PhoneNumber { get; set; } = null!;
 
-    public string? StreetName { get; set; }
+	public string? Company { get; set; } = null!;
 
-    public string? PostalCode { get; set; }
+	[Display(Name = "Uplad Profile Picture")]
+	[DataType(DataType.Upload)]
+	public IFormFile? ProfilePicture { get; set; }
 
-    public string? City { get; set; }
+    public string StreetName { get; set; } = null!;
+
+    public string PostalCode { get; set; } = null!;
+
+    public string City { get; set; } = null!;
 
 
-    public static implicit operator IdentityUser(UserSignUpViewModel model)
+/*    public static implicit operator IdentityUser(UserSignUpViewModel model)
     {
         return new IdentityUser
-        {
-            UserName = model.Email,
+        {            
             Email = model.Email,
             PhoneNumber = model.PhoneNumber
         };
-    }
+    }*/
 
-    public static implicit operator UserProfileEntity(UserSignUpViewModel model)
+    public static implicit operator UserEntity(UserSignUpViewModel model)
     {
-        return new UserProfileEntity
+        return new UserEntity
         {
+            Email = model.Email,
+            PhoneNumber = model.PhoneNumber,
             FirstName = model.FirstName,
             LastName = model.LastName,
+            Company = model.Company
+        
+
+        };
+    }
+
+    public static implicit operator AddressEntity(UserSignUpViewModel model)
+    {
+        return new AddressEntity
+        {
             StreetName = model.StreetName,
             PostalCode = model.PostalCode,
-            City = model.City,
+            City = model.City
+
         };
     }
 

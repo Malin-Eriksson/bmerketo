@@ -1,0 +1,26 @@
+﻿@model int
+@inject ProductRepo productRepo
+
+@{
+	var product = await productRepo.GetAsync(x => x.Id == Model);
+}
+
+
+
+@if (product != null)
+{
+	<div>
+		<div>@product.Name</div>
+		<div>
+			@foreach (var tag in product.ProductTags)
+			{
+				<span>@tag.Tag.TagName</span>
+			}
+		</div>
+	</div>
+} else
+{
+	<div>Product not found</div>
+}
+
+

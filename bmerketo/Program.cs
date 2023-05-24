@@ -1,22 +1,41 @@
 using bmerketo.Contexts;
 using bmerketo.Factories;
+using bmerketo.Models.Entities;
+using bmerketo.Repositories;
 using bmerketo.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<ShowcaseService>(); // new ShowcaseService()
+//contexts
 builder.Services.AddDbContext<IdentityContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDatabase")));
-builder.Services.AddDbContext<ProductContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("ProductDatabase")));
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("ProductDatabase")));
+
+// services
+builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ShowcaseService>(); 
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<SeedService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<TagService>();
+builder.Services.AddScoped<AddressService>();
+builder.Services.AddScoped<AdminService>();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(x => 
+// repositories
+
+builder.Services.AddScoped<AddressRepo>();
+builder.Services.AddScoped<ContactFormRepo>();
+builder.Services.AddScoped<ProductRepo>();
+builder.Services.AddScoped<ProductTagRepo>();
+builder.Services.AddScoped<TagRepo>();
+builder.Services.AddScoped<UserAddressRepo>();
+builder.Services.AddScoped<UserRepo>();
+
+
+// authentication
+builder.Services.AddIdentity<UserEntity, IdentityRole>(x => 
 {
     x.SignIn.RequireConfirmedAccount = false;
     x.Password.RequiredLength = 8;
@@ -24,6 +43,12 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(x =>
   })
     .AddEntityFrameworkStores<IdentityContext>()
     .AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>();
+
+builder.Services.ConfigureApplicationCookie(x =>
+{
+    x.LoginPath = "/signin";
+    //x.AccessDeniedPath = "/denied";
+});
 
 
 

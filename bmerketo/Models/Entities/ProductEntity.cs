@@ -6,6 +6,8 @@ namespace bmerketo.Models.Entities;
 public partial class ProductEntity
 {
 	[Key]
+
+	public int Id { get; set; }
 	public string ArticleNumber { get; set; } = null!;
 	public string Name { get; set; } = null!;
 
@@ -14,9 +16,11 @@ public partial class ProductEntity
 
 	public string? Description { get; set; } = null!;
 
-	public int? CategoryId { get; set; }
+	public string? ImageUrl { get; set; } = null!;
 
-	public ProductCategoryEntity Category { get; set; } = null!;
+
+
+	public ICollection<ProductTagEntity> ProductTags { get; set; } = new HashSet<ProductTagEntity>();
 
 	
 
@@ -25,11 +29,12 @@ public partial class ProductEntity
 	{
 		return new ProductModel
 		{
+			Id = entity.Id,
 			ArticleNumber = entity.ArticleNumber,
 			Name = entity.Name,
 			Price = entity.Price,
 			Description = entity.Description,
-			CategoryId = entity.CategoryId
+			ImageUrl = entity.ImageUrl
 			
 		};
 	}

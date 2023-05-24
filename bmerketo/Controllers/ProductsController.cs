@@ -1,4 +1,5 @@
-﻿using bmerketo.Services;
+﻿using bmerketo.Models;
+using bmerketo.Services;
 using bmerketo.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,16 @@ namespace bmerketo.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			var products = await _productService.GetAllAsync();			
-			return View(products);
+			var viewModel = new ProductsIndexViewModel
+			{
+				Products = await _productService.GetAllAsync()
+			};		
+			return View(viewModel);
+		}
+
+		public IActionResult Details(int id)
+		{
+			return View(id);
 		}
 
 		public IActionResult Search()
@@ -37,12 +46,21 @@ namespace bmerketo.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> Add(AddProductViewModel viewModel)
+		public async Task<IActionResult> AddProduct(AddProductFormModel viewModel)
 		{
 			if (ModelState.IsValid)
 			{
-				await _productService.CreateAsync(viewModel.Form);
-				return RedirectToAction("Index");
+				var product = await _productService.CreateAsync(viewModel);
+				if (product != null)
+				{
+					if (viewModel.Image != null)
+						await _productService.UploadImageAsync(product, viewModel.Image!);
+
+					return RedirectToAction("Index");
+				}
+
+				ModelState.AddModelError("", "Something went wrong!");
+				
 			}
 			return View(viewModel);
 		}

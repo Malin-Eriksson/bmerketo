@@ -1,7 +1,8 @@
-﻿namespace bmerketo.ViewModels;
+﻿using bmerketo.Models;
+
+namespace bmerketo.ViewModels;
 
 public class ProductsIndexViewModel
 {
-    public string Title { get; set; } = "Products";
-    public GridCollectionViewModel All;
+	public IEnumerable<ProductModel> Products { get; set; } = new List<ProductModel>();
 }

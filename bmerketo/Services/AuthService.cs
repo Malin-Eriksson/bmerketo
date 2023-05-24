@@ -9,22 +9,20 @@ namespace bmerketo.Services;
 
 public class AuthService
 {
-	private readonly UserManager<IdentityUser> _userManager;
-	private readonly SignInManager<IdentityUser> _signInManager;
-	private readonly RoleManager<IdentityRole> _roleManager;
-	private readonly IdentityContext _identityContext;
+	private readonly SignInManager<UserEntity> _signInManager;
 	private readonly SeedService _seedService;
+	private readonly AddressService _addressService;
+	private readonly UserManager<UserEntity> _userManager;
 
-    public AuthService(UserManager<IdentityUser> userManager, IdentityContext identityContext, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, SeedService seedService)
-    {
-        _userManager = userManager;
-        _identityContext = identityContext;
-        _signInManager = signInManager;
-        _roleManager = roleManager;
-        _seedService = seedService;
-    }
+	public AuthService(SignInManager<UserEntity> signInManager, SeedService seedService, AddressService addressService, UserManager<UserEntity> userManager)
+	{
+		_signInManager = signInManager;
+		_seedService = seedService;
+		_addressService = addressService;
+		_userManager = userManager;
+	}
 
-    public async Task<bool> SignUpAsync(UserSignUpViewModel model)
+	public async Task<bool> SignUpAsync(UserSignUpViewModel model)
 	{
 		try
 		{
@@ -37,18 +35,31 @@ public class AuthService
 				roleName = "admin";
 
 
-			IdentityUser identityUser = model;
-			await _userManager.CreateAsync(identityUser, model.Password);
+			UserEntity userEntity = model;
+			var result = await _userManager.CreateAsync(userEntity, model.Password);
 
-			await _userManager.AddToRoleAsync(identityUser, roleName);
+			await _userManager.AddToRoleAsync(userEntity, roleName);
 
-			UserProfileEntity userProfileEntity = model;
-			userProfileEntity.UserId = identityUser.Id;
+			if (result.Succeeded)
+			{
+				var addressEntity = await _addressService.GetOrCreateAsync(model);
+				if (addressEntity != null)
+				{
+					await _addressService.AddUserAddressAsync(userEntity, addressEntity);
+					return true;
+				}
 
-			_identityContext.UserProfiles.Add(userProfileEntity);
+			}
+
+			return false;
+
+/*			UserEntity userEntity = model;
+			userEntity.UserId = identityUser.Id;
+
+			_identityContext.UserProfiles.Add(userEntity);
 			await _identityContext.SaveChangesAsync();
 
-			return true;
+			return true;*/
 		} 
 		catch { return false; }
 	}

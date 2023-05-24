@@ -1,7 +1,11 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @using bmerketo.Services;
 @using bmerketo.ViewModels;
+@using bmerketo.Models;
+@using bmerketo.Models.Entities;
 @using Microsoft.AspNetCore.Identity;
-@inject SignInManager<IdentityUser> signInManager
-@inject UserManager<IdentityUser> userManager
+@using bmerketo.Repositories;
+@inject SignInManager<UserEntity> signInManager
+@inject UserManager<UserEntity> userManager
 @inject ProductService productService
+@inject TagService productCategoryService
