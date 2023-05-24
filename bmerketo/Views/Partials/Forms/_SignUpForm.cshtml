@@ -8,43 +8,48 @@
 
 		<div class="mb-3">
 			<label asp-for="FirstName">First name</label>
-			<input asp-for="FirstName" class="form-control" onkeyup="validateText(event)" />
-			<small class="text-danger"><span asp-validation-for="FirstName"></span></small>
+			<input asp-for="FirstName" class="form-control" onkeyup="validateText(event)" id="FirstName"/>
+			<small class="text-danger" data-valmsg-for="FirstName"><span asp-validation-for="FirstName"></span></small>
 		</div>
 		<div class="mb-3">
 			<label asp-for="LastName">Last name</label>
-			<input asp-for="LastName" class="form-control" onkeyup="validateText(event)" />
-			<small class="text-danger"><span asp-validation-for="LastName"></span></small>
-		</div>
-		<div class="mb-3">
-			<label asp-for="Email">Email</label>
-			<input asp-for="Email" class="form-control" onkeyup="validateEmail(event)"  />
-			<small class="text-danger"><span asp-validation-for="Email"></span></small>
-		</div>
-		<div class="mb-3">
-			<label asp-for="PhoneNumber">Phone number</label>
-			<input asp-for="PhoneNumber" class="form-control" onkeyup="validatePhoneNumber(event)" />
-			<small class="text-danger"><span asp-validation-for="PhoneNumber"></span></small>
+			<input asp-for="LastName" class="form-control" onkeyup="validateText(event)" id="LastName" />
+			<small class="text-danger" data-valmsg-for="LastName"><span asp-validation-for="LastName"></span></small>
 		</div>
 		<div class="mb-3">
 			<label asp-for="StreetName">Street address</label>
-			<input asp-for="StreetName" class="form-control" onkeyup="validateText(event)" />
-			<small class="text-danger"><span asp-validation-for="StreetName"></span></small>
+			<input asp-for="StreetName" class="form-control" onkeyup="validateText(event)" id="StreetAddress" />
+			<small class="text-danger" data-valmsg-for="StreetAddress"><span asp-validation-for="StreetName"></span></small>
 		</div>
 		<div class="mb-3">
 			<label asp-for="PostalCode">Postal code</label>
-			<input asp-for="PostalCode" class="form-control" onkeyup="validateText(event)" />
-			<small class="text-danger"><span asp-validation-for="PostalCode"></span></small>
+			<input asp-for="PostalCode" class="form-control" onkeyup="validateText(event)" id="PostalCode" />
+			<small class="text-danger" data-valmsg-for="PostalCode"><span asp-validation-for="PostalCode"></span></small>
 		</div>
 		<div class="mb-3">
 			<label asp-for="City">City</label>
-			<input asp-for="City" class="form-control" onkeyup="validateText(event)" />
-			<small class="text-danger"><span asp-validation-for="City"></span></small>
+			<input asp-for="City" class="form-control" onkeyup="validateText(event)" id="City" />
+			<small class="text-danger" data-valmsg-for="City"><span asp-validation-for="City"></span></small>
+		</div>
+		<div class="mb-3">
+			<label asp-for="PhoneNumber">Phone number</label>
+			<input asp-for="PhoneNumber" class="form-control" onkeyup="validateText(event)" id="PhoneNumber" />
+			<small class="text-danger" data-valmsg-for="PhoneNumber"><span asp-validation-for="PhoneNumber"></span></small>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Company">Company name (optional)</label>
+			<input asp-for="Company" class="form-control" onkeyup="validateText(event)" id="Company" />
+			<small class="text-danger" data-valmsg-for="Company"><span asp-validation-for="Company"></span></small>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Email">Email</label>
+			<input asp-for="Email" class="form-control" onkeyup="validateEmail(event)" id="Email" />
+			<small class="text-danger" data-valmsg-for="Email"><span asp-validation-for="Email"></span></small>
 		</div>
 		<div class="mb-3">
 			<label asp-for="Password">Password</label>
-			<input asp-for="Password" class="form-control" onkeyup="validatePassword(event)" />
-			<small class="text-danger"><span asp-validation-for="Password"></span></small>
+			<input asp-for="Password" class="form-control" onkeyup="validatePassword(event)" id="Password" />
+			<small class="text-danger" data-valmsg-for="Password"><span asp-validation-for="Password"></span></small>
 		</div>
 		<div class="mb-3">
 			<label asp-for="ConfirmPassword">Confirm password</label>

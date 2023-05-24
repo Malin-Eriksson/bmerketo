@@ -27,7 +27,7 @@ public class AddProductFormModel
 
 
     [DataType(DataType.Upload)]
-    public IFormFile Image { get; set; } = null!;
+    public IFormFile? Image { get; set; } = null!;
 
     public static implicit operator ProductEntity(AddProductFormModel model)
     {
