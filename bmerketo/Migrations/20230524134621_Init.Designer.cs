@@ -12,8 +12,8 @@ using bmerketo.Contexts;
 namespace bmerketo.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20230524083039_User address table added")]
-    partial class Useraddresstableadded
+    [Migration("20230524134621_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -253,7 +253,7 @@ namespace bmerketo.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AddressEntity");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("bmerketo.Models.Entities.UserAddressEntity", b =>
@@ -268,7 +268,7 @@ namespace bmerketo.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("UserAddressEntity");
+                    b.ToTable("UserAddresses");
                 });
 
             modelBuilder.Entity("bmerketo.Models.Entities.UserEntity", b =>
@@ -352,7 +352,7 @@ namespace bmerketo.Migrations
                         .IsRequired();
 
                     b.HasOne("bmerketo.Models.Entities.UserEntity", "User")
-                        .WithMany("Users")
+                        .WithMany("Addresses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -369,7 +369,7 @@ namespace bmerketo.Migrations
 
             modelBuilder.Entity("bmerketo.Models.Entities.UserEntity", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618
         }

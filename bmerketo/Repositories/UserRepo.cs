@@ -3,9 +3,9 @@ using bmerketo.Models.Entities;
 
 namespace bmerketo.Repositories;
 
-public class UserRepo : Repo<UserEntity>
+public class UserRepo : IdentityRepo<UserEntity>
 {
-	public UserRepo(DataContext context) : base(context)
+	public UserRepo(IdentityContext context) : base(context)
 	{
 	}
 }

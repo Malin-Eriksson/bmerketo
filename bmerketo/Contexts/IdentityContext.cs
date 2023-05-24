@@ -13,7 +13,7 @@ public class IdentityContext : IdentityDbContext
     {
 
     }
-    public DbSet<UserEntity> UserProfiles { get; set; }
+    public DbSet<UserEntity>  UserProfiles { get; set; }
     public DbSet<AddressEntity> Addresses { get; set; }
     public DbSet<UserAddressEntity> UserAddresses { get; set; }
 

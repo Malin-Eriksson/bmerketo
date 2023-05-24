@@ -9,7 +9,7 @@ public class UserEntity : IdentityUser
     public string LastName { get; set;} = null!;
     public string? Company { get; set; }
     public string? ProfilePicture { get; set; }
-	public ICollection<UserAddressEntity> Users { get; set; } = new List<UserAddressEntity>();
+	public ICollection<UserAddressEntity> Addresses { get; set; } = new List<UserAddressEntity>();
 
 
 	

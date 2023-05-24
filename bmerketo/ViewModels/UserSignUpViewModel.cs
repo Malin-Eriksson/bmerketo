@@ -53,6 +53,7 @@ public class UserSignUpViewModel
     {
         return new UserEntity
         {
+            UserName = model.Email,
             Email = model.Email,
             PhoneNumber = model.PhoneNumber,
             FirstName = model.FirstName,

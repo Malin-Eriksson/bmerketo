@@ -3,9 +3,9 @@ using bmerketo.Models.Entities;
 
 namespace bmerketo.Repositories;
 
-public class AddressRepo : Repo<AddressEntity>
+public class AddressRepo : IdentityRepo<AddressEntity>
 {
-	public AddressRepo(DataContext context) : base(context)
+	public AddressRepo(IdentityContext context) : base(context)
 	{
 	}
 }
