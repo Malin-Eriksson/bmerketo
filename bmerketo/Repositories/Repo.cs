@@ -70,6 +70,8 @@ public abstract class Repo<TEntity> where TEntity : class
 
 	}
 
+	
+
 
 
 	public virtual async Task<IEnumerable<TEntity>> GetAllAsync()

@@ -8,11 +8,11 @@ using bmerketo.Contexts;
 
 #nullable disable
 
-namespace bmerketo.Migrations.Product
+namespace bmerketo.Migrations.Data
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230525150327_ArticleNumber as key")]
-    partial class ArticleNumberaskey
+    [Migration("20230525173620_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

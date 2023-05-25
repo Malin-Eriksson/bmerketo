@@ -26,7 +26,7 @@
 	@foreach(var product in await productRepo.GetAllAsync())
 	{
 		<div>
-			<div><a asp-action="details" asp-route-id="@product.ArticleNumber">@product.Name</a></div>
+			<div><a asp-action="details" asp-route-articlenumber="@product.ArticleNumber">@product.Name</a></div>
 			<div>
 				@foreach(var tag in product.ProductTags)
 				{

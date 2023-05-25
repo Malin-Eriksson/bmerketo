@@ -5,9 +5,9 @@ namespace bmerketo.Models;
 
 public class AddProductFormModel
 {
-	[Required(ErrorMessage = "You have to enter an article number")]
-	[Display(Name = "Article number *")]
-	public string ArticleNumber { get; set; } = null!;
+    [Required(ErrorMessage = "You have to enter an article number")]
+    [Display(Name = "Article number *")]
+    public string ArticleNumber { get; set; } = null!;
     
     [Required(ErrorMessage = "You have to enter a product name")]
     [Display(Name = "Product name *")]

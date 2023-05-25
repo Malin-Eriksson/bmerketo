@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\Data\" />
     <Folder Include="Migrations\Product\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\products\" />

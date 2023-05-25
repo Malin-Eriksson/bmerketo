@@ -4,29 +4,14 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace bmerketo.Migrations.Product
+namespace bmerketo.Migrations.Data
 {
     /// <inheritdoc />
-    public partial class Producttagsadded : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Products_ProductCategories_CategoryId",
-                table: "Products");
-
-            migrationBuilder.DropTable(
-                name: "ProductCategories");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Products_CategoryId",
-                table: "Products");
-
-            migrationBuilder.DropColumn(
-                name: "CategoryId",
-                table: "Products");
-
             migrationBuilder.CreateTable(
                 name: "ContactForm",
                 columns: table => new
@@ -42,6 +27,21 @@ namespace bmerketo.Migrations.Product
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ContactForm", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ArticleNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "money", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ArticleNumber);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,17 +61,17 @@ namespace bmerketo.Migrations.Product
                 name: "ProductTags",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ArticleNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TagId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductTags", x => new { x.ProductId, x.TagId });
+                    table.PrimaryKey("PK_ProductTags", x => new { x.ArticleNumber, x.TagId });
                     table.ForeignKey(
-                        name: "FK_ProductTags_Products_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_ProductTags_Products_ArticleNumber",
+                        column: x => x.ArticleNumber,
                         principalTable: "Products",
-                        principalColumn: "Id",
+                        principalColumn: "ArticleNumber",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProductTags_Tags_TagId",
@@ -107,38 +107,10 @@ namespace bmerketo.Migrations.Product
                 name: "ProductTags");
 
             migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
                 name: "Tags");
-
-            migrationBuilder.AddColumn<int>(
-                name: "CategoryId",
-                table: "Products",
-                type: "int",
-                nullable: true);
-
-            migrationBuilder.CreateTable(
-                name: "ProductCategories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductCategories", x => x.Id);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_CategoryId",
-                table: "Products",
-                column: "CategoryId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Products_ProductCategories_CategoryId",
-                table: "Products",
-                column: "CategoryId",
-                principalTable: "ProductCategories",
-                principalColumn: "Id");
         }
     }
 }

@@ -6,7 +6,7 @@ namespace bmerketo.Models.Entities;
 public partial class ProductEntity
 {
 	[Key]
-	public string ArticleNumber { get; set; } = null!;
+	public string ArticleNumber { get; set; } = null!; 
 	public string Name { get; set; } = null!;
 
 	[Column(TypeName = "money")]

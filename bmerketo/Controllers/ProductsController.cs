@@ -28,9 +28,9 @@ namespace bmerketo.Controllers
 			return View(viewModel);
 		}
 
-		public IActionResult Details(string articleNumber)
+		public IActionResult Details(string articlenumber)
 		{
-			return View(articleNumber);
+			return View((object)articlenumber);
 		}
 
 		public IActionResult Search()

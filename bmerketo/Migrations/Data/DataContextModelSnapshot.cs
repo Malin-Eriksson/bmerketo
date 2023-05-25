@@ -2,20 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using bmerketo.Contexts;
 
 #nullable disable
 
-namespace bmerketo.Migrations.Product
+namespace bmerketo.Migrations.Data
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230524083219_Product tags added")]
-    partial class Producttagsadded
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,15 +54,8 @@ namespace bmerketo.Migrations.Product
 
             modelBuilder.Entity("bmerketo.Models.Entities.ProductEntity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("ArticleNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -80,20 +70,20 @@ namespace bmerketo.Migrations.Product
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
-                    b.HasKey("Id");
+                    b.HasKey("ArticleNumber");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("bmerketo.Models.Entities.ProductTagEntity", b =>
                 {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<string>("ArticleNumber")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("TagId")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId", "TagId");
+                    b.HasKey("ArticleNumber", "TagId");
 
                     b.HasIndex("TagId");
 
@@ -138,7 +128,7 @@ namespace bmerketo.Migrations.Product
                 {
                     b.HasOne("bmerketo.Models.Entities.ProductEntity", "Product")
                         .WithMany("ProductTags")
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("ArticleNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
