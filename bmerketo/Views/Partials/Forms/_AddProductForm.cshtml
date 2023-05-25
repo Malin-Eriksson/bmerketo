@@ -1,6 +1,8 @@
 ﻿@model AddProductFormModel
 
-
+@{
+	ViewData["Title"] = "Product Registration";
+}
 
 <div class="d-flex justify-content-center mt-50 pt-50">
 	<div class="col-6">
@@ -9,50 +11,44 @@
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 			<div class="mb-3 pt-50">
-				<label asp-for="ArticleNumber" class="form-label"></label>
+				<label asp-for="ArticleNumber" class="form-label">Article number:</label>
 				<input asp-for="ArticleNumber" class="form-control" />
 				<small><span asp-validation-for="ArticleNumber" class="text-danger"></span></small>
 			</div>
 
 			<div class="mb-3 pt-50">
-				<label asp-for="Name" class="form-label"></label>
+				<label asp-for="Name" class="form-label">Product name:</label>
 				<input asp-for="Name" class="form-control" />
 				<small><span asp-validation-for="Name" class="text-danger"></span></small>
 			</div>
 
 			<div class="mb-3">
-				<label asp-for="Price" class="form-label"></label>
+				<label asp-for="Price" class="form-label">Price:</label>
 				<input asp-for="Price" class="form-control" />
 				<small><span asp-validation-for="Price" class="text-danger"></span></small>
 			</div>
 
 			<div class="mb-3">
-				<label asp-for="Description" class="form-label"></label>
+				<label asp-for="Description" class="form-label">Product description (optional):</label>
 				<textarea asp-for="Description" class="form-control" rows="4"></textarea>
 				<small><span asp-validation-for="Description" class="text-danger"></span></small>
 			</div>
-
-
-
-
-@*			<div class="tag form-group" style="margin-bottom: 20px;">
-				<label class="tag">Product Tag*</label>
-				@foreach (SelectListItem tag in ViewBag.Tags)
-				{
-					<div class="form-check">
-						<input type="checkbox" name="Tags" id="tag-@tag.Text-@tag.Value" value="@tag.Value" checked="@tag.Selected" class="form-check-input" />
-						<label for="tag-@tag.Text-@tag.Value" class="small form-checkbox-label">@tag.Text</label>
-					</div>
-				}
-				<span id="tagsError" class="error-message"></span>
-
-			</div>*@
 
 			<div class="mb-3">
 				<label asp-for="Image" class="form-label"></label>
 				<input asp-for="Image" class="form-control" rows="4" />
 				<small><span asp-validation-for="Image" class="text-danger"></span></small>
 
+			</div>
+
+			<div>
+				@foreach (SelectListItem tag in ViewBag.Tags)
+				{
+					<div>
+						<input type="checkbox" name="Tags" id="tag-@tag.Text-@tag.Value" value="@tag.Value" checked="@tag.Selected" class="form-check-input" />
+						<label for="tag-@tag.Text-@tag.Value" class="form-check-label">@tag.Text</label>
+					</div>
+				}
 			</div>
 			
 			<div class="grid mt-2">

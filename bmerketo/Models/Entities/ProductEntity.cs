@@ -6,8 +6,6 @@ namespace bmerketo.Models.Entities;
 public partial class ProductEntity
 {
 	[Key]
-
-	public int Id { get; set; }
 	public string ArticleNumber { get; set; } = null!;
 	public string Name { get; set; } = null!;
 
@@ -29,7 +27,6 @@ public partial class ProductEntity
 	{
 		return new ProductModel
 		{
-			Id = entity.Id,
 			ArticleNumber = entity.ArticleNumber,
 			Name = entity.Name,
 			Price = entity.Price,

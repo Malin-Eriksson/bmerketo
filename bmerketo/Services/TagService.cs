@@ -1,6 +1,8 @@
-﻿using bmerketo.Models;
+﻿using bmerketo.Contexts;
+using bmerketo.Models;
 using bmerketo.Models.Entities;
 using bmerketo.Repositories;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using static bmerketo.Models.Entities.ProductEntity;
 
 namespace bmerketo.Services;
@@ -14,21 +16,38 @@ public class TagService
 		_tagRepo = tagRepo;
 	}
 
-	public async Task<TagEntity> GetOrCreateAsync(TagModel model)
+	public async Task<List<SelectListItem>> GetTagsAsync()
 	{
-		var tagEntity = await _tagRepo.GetAsync(x => x.Id == model.Value);
-		tagEntity ??= await _tagRepo.AddAsync(new TagEntity { TagName = model.Name });
-		return tagEntity;
-	}
+		var tags = new List<SelectListItem>();
 
-	public async Task<IEnumerable<TagModel>> GetTagsAsync()
-	{
-		var items = await _tagRepo.GetAllAsync();
-		var tags= new List<TagModel>();
-
-		foreach(var item in items)
-			tags.Add(new TagModel { Name = item.TagName, Value = item.Id });
+		foreach (var tag in await _tagRepo.GetAllAsync())
+		{
+			tags.Add(new SelectListItem
+			{
+				Value = tag.Id.ToString(),
+				Text = tag.TagName
+			});
+		}
 
 		return tags;
 	}
+
+	public async Task<List<SelectListItem>> GetTagsAsync(string[] selectedTags)
+	{
+		var tags = new List<SelectListItem>();
+
+		foreach (var tag in await _tagRepo.GetAllAsync())
+		{
+			tags.Add(new SelectListItem
+			{
+				Value = tag.Id.ToString(),
+				Text = tag.TagName,
+				Selected = selectedTags.Contains(tag.Id.ToString())
+			});
+		}
+
+		return tags;
+	}
+
+
 }

@@ -10,34 +10,43 @@ namespace bmerketo.Services;
 
 public class ProductService
 {
-	private readonly DataContext _context;
-	private readonly TagService _categoryService;
-
-	private readonly ProductRepo _productService;
+	
+	private readonly ProductTagRepo _productTagRepo;
+	private readonly ProductRepo _productRepo;
 	private readonly IWebHostEnvironment _webHostEnvironment;
 
-	public ProductService(TagService categoryService, DataContext context, IWebHostEnvironment webHostEnvironment, ProductRepo productService)
+	public ProductService(IWebHostEnvironment webHostEnvironment, ProductRepo productRepo, ProductTagRepo productTagRepo)
 	{
-		_categoryService = categoryService;
-		_context = context;
+
 		_webHostEnvironment = webHostEnvironment;
-		_productService = productService;
+		_productRepo = productRepo;
+		_productTagRepo = productTagRepo;
 	}
 
 
 
-	public async Task<ProductModel> CreateAsync(AddProductFormModel form) 
+	public async Task<ProductEntity> CreateAsync(ProductEntity entity) 
 	{
+		var _entity = await _productRepo.GetAsync(x => x.ArticleNumber == entity.ArticleNumber);
+		if(_entity == null)
+		{
+			_entity = await _productRepo.AddAsync(entity);
+			/*if (_entity != null);*/
+				
+		}
+		return entity;
+	}
 
-			//var tag = await _categoryService.GetOrCreateAsync(form.Tag);
-
-			ProductEntity product = form;
-			//product.Tag = tag.Id;
-
-			await _productService.AddAsync(product);
-
-			return product;
-
+	public async Task AddProductTagsAsync(ProductEntity entity, string[] tags)
+	{
+		foreach (var tag in tags)
+		{
+			await _productTagRepo.AddAsync(new ProductTagEntity
+			{
+				ArticleNumber = entity.ArticleNumber,
+				TagId = int.Parse(tag)
+			});
+		}
 	}
 
 
@@ -60,7 +69,7 @@ public class ProductService
 
 	public async Task<IEnumerable<ProductModel>> GetAllAsync()
 	{
-		var items = await _productService.GetAllAsync();
+		var items = await _productRepo.GetAllAsync();
 		var list = new List<ProductModel>();
 		foreach (var item in items)		
 			list.Add(item);

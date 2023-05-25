@@ -1,25 +1,19 @@
 ﻿using bmerketo.Models;
 using bmerketo.Models.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace bmerketo.ViewModels;
 
 public class AddProductViewModel
 {
 
-	public AddProductFormModel Form { get; set; } = new AddProductFormModel();
+	[Required(ErrorMessage = "You have to enter an article number")]
+	[Display(Name = "Article number *")]
+	public string ArticleNumber { get; set; } = null!;
 
-	public IEnumerable<TagModel> Tags { get; set; } = null!;
-
-
-
-
-
-
-
-/*    [Required(ErrorMessage = "You have to enter a product name")]
-    [Display(Name = "Product name *")]
-    public string Name { get; set; } = null!;
-
+	[Required(ErrorMessage = "You have to enter a product name")]
+	[Display(Name = "Product name *")]
+	public string Name { get; set; } = null!;
 
 	[Required(ErrorMessage = "You have to enter the product's price")]
 	[Display(Name = "Product price *")]
@@ -28,26 +22,34 @@ public class AddProductViewModel
 
 
 	[Display(Name = "Product description (optional)")]
-    public string? Description { get; set; } = null!;
-
-
-	[Display(Name = "Product category (optional)")]
-	public int? CategoryId { get; set; } 
+	public string? Description { get; set; } = null!;
 
 
 
 
-	public static implicit operator ProductEntity(AddProductViewModel addProductViewModel)
+
+	[DataType(DataType.Upload)]
+	public IFormFile? Image { get; set; } = null!;
+
+	public static implicit operator ProductEntity(AddProductViewModel model)
 	{
-		return new ProductEntity
+
+
+		var entity = new ProductEntity
 		{
-			Name = addProductViewModel.Name,
-			Price = addProductViewModel.Price,
-			Description = addProductViewModel.Description,
-			CategoryId = addProductViewModel.CategoryId
+			ArticleNumber = model.ArticleNumber,
+			Name = model.Name,
+			Description = model.Description,
+			Price = model.Price
 
 		};
-	}*/
+
+		if (model.Image != null)
+			entity.ImageUrl = $"{Guid.NewGuid()}_{model.Image?.FileName}";
+
+		return entity;
+
+	}
 
 
 

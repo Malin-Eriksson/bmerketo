@@ -11,10 +11,12 @@ namespace bmerketo.Controllers
 	{
 
 		private readonly ProductService _productService;
+		private readonly TagService _tagService;
 
-		public ProductsController(ProductService productService)
+		public ProductsController(ProductService productService, TagService tagService)
 		{
 			_productService = productService;
+			_tagService = tagService;
 		}
 
 		public async Task<IActionResult> Index()
@@ -26,9 +28,9 @@ namespace bmerketo.Controllers
 			return View(viewModel);
 		}
 
-		public IActionResult Details(int id)
+		public IActionResult Details(string articleNumber)
 		{
-			return View(id);
+			return View(articleNumber);
 		}
 
 		public IActionResult Search()
@@ -39,20 +41,25 @@ namespace bmerketo.Controllers
 
 
 		[Authorize(Roles = "admin")]
-		public IActionResult AddProduct()
+		public async Task<IActionResult> AddProduct()
 		{
+			ViewBag.Tags = await _tagService.GetTagsAsync();
 			return View();
 		}
 
 
 		[HttpPost]
-		public async Task<IActionResult> AddProduct(AddProductFormModel viewModel)
+		public async Task<IActionResult> AddProduct(AddProductFormModel viewModel, string[] tags)
 		{
 			if (ModelState.IsValid)
 			{
 				var product = await _productService.CreateAsync(viewModel);
+				
+					
 				if (product != null)
 				{
+					await _productService.AddProductTagsAsync(viewModel, tags);
+
 					if (viewModel.Image != null)
 						await _productService.UploadImageAsync(product, viewModel.Image!);
 
@@ -62,6 +69,7 @@ namespace bmerketo.Controllers
 				ModelState.AddModelError("", "Something went wrong!");
 				
 			}
+			ViewBag.Tags = await _tagService.GetTagsAsync(tags);
 			return View(viewModel);
 		}
 
