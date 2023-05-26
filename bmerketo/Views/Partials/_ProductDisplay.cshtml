@@ -1,0 +1,29 @@
+﻿@inject ProductRepo productRepo
+
+@model ProductsIndexViewModel
+
+
+
+<div>
+	@foreach (var product in await productRepo.GetAllAsync())
+	{
+
+		<a asp-action="details" asp-route-articlenumber="@product.ArticleNumber" class="collection-item">
+			<img src="images/products/@product.ImageUrl" alt="@product.Name">
+			<div class="body">
+				<div class="title">@product.Name</div>
+				<div>
+					@foreach (var tag in product.ProductTags)
+					{
+						<span>@tag.Tag.TagName</span>
+					}
+				</div>
+				<div class="info">
+					<div class="price">$@product.Price</div>
+					<i class="add-cart fa-regular fa-cart-plus"></i>
+				</div>
+			</div>
+		</a>
+
+	}
+</div>

@@ -1,5 +1,6 @@
 .grid-collection {
-    padding: 40px 20px;
+    padding-top: 100px;
+    
 
     .title {
         text-align: center;
@@ -13,7 +14,7 @@
         }
     }
     
-    .categories {
+    .tags {
         display: none;
         justify-content: center;
         list-style: none;
@@ -24,7 +25,7 @@
             display: flex;
         }
 
-        .category-item {
+        .tag-item {
             margin-right: 5px;
 
             & + li::before {

@@ -1,73 +1,48 @@
-﻿
-@inject ProductRepo productRepo
-
-@model ProductsIndexViewModel
+﻿@model ProductsIndexViewModel
 
 @{
 	ViewData["Title"] = "Products";
 
-	@*var products = await productService.GetAllAsync();*@
 }
-<div>
-	What is Lorem Ipsum?
-	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-	Why do we use it?
-	It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-
-	What is Lorem Ipsum?
-	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-	Why do we use it?
-	It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-</div>
-
-<div>
-	@foreach(var product in await productRepo.GetAllAsync())
-	{
-		<div>
-			<div><a asp-action="details" asp-route-articlenumber="@product.ArticleNumber">@product.Name</a></div>
-			<div>
-				@foreach(var tag in product.ProductTags)
-				{
-					<span>@tag.Tag.TagName</span>
-				}
-			</div>
-			<div></div>
-		</div>
-	}
-</div>
-
-
-@*<div class="container mt-5">
-	@foreach (var product in Model.Products)
-	{
-		<div class="card mb-3">
-			<div class="card-body">
-				<div class="d-flex justify-content-start align-items-center">
-					<img src="~/images/products/@product.ImageUrl" alt="@product.Name" height="50" width="50" />
-					<div class="ms-2">
-						<div>@product.ArticleNumber</div>
-						<div>@product.Name</div>
-					</div>
-				</div>
-			</div>
-		</div>		
-	}
-</div>*@
 
 
 
 
+@if (Model != null)
+{
+    <section class="grid-collection">
+        <div class="container">
 
 
+          <h1 class="title">Products</h1>
+           
+
+            @if (Model.ProductTags != null)
+            {
+                <ul class="tags">
+                    @foreach (var tag in Model.ProductTags)
+                    {
+                        <li class="tag-item">@tag</li>
+                    }
+
+                </ul>
+            }
+
+            @if (Model.Products != null)
+            {
+                <div class="grid">
+                        <partial name="/Views/Partials/_ProductDisplay.cshtml" />                    
+                </div>
+            }
+
+            @if (Model.LoadMore)
+            {
+                <div class="load-more">
+                    <button class="btn-outline-white">LOAD MORE <i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+            }
 
 
-@*@model ProductsIndexViewModel
-
-<div style="padding-top: 150px;" >
-
-	<partial name="/Views/Partials/_GridCollection.cshtml" model="@Model.All" />
-
-</div>*@
-
+        </div>
+    </section> 
+    }
