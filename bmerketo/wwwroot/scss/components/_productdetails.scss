@@ -12,16 +12,17 @@
 
 
         .main-image {
-            width: 415px;
-            height: 415px;
+            width: 501px;
+            height: 430px;
         }
 
         .extra-images {
             padding-top: 5px;
 
             .extra-image {
-                width: 100px;
-                height: 100px;
+                width: 120px;
+                height: 113px;
+                margin-right: 3px;
             }
         }
     }
@@ -36,22 +37,27 @@
 
     .rating {
         color: $color-yellow;
+        padding: 20px 0 20px 0;
+    }
+
+    .stock {
+        display: flex;
         padding: 15px 0 15px 0;
-    }
 
-    .yellow {
-        color: $color-yellow;
-        padding: 2px;
-    }
+        .yellow {
+            color: $color-yellow;
+            padding: 0 5px 0 5px;
+        }
 
-    .red {
-        color: $color-theme-1;
-        padding: 2px;
-    }
+        .red {
+            color: $color-theme-1;
+            padding: 0 5px 0 5px;
+        }
 
-    .green {
-        color: $color-green;
-        padding: 2px;
+        .green {
+            color: $color-green;
+            padding: 0 5px 0 5px;
+        }
     }
 }
 .extra-info {
@@ -66,7 +72,7 @@
 
 .related-products {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    padding: 20px 0 20px 0;
+    padding: 20px 0 50px 0;
 }

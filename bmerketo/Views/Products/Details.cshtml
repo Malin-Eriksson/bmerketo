@@ -5,6 +5,8 @@
 	var product = await productRepo.GetAsync(x => x.ArticleNumber == Model);
 }
 
+<img src="/images/placeholders/1920x300.svg" />
+
 <div class="product-details container">
 	<div class="images">
 		<div><img src="~/images/products/@product.ImageUrl" alt="@product.Name" class="main-image" /></div>
@@ -30,12 +32,12 @@
 			16 Reviews
 		</div>
 		<div class="price">$@product.Price</div>
-		<div><button class ="btn-theme">Add to Cart <i class="fa-regular fa-cart-plus"></i></button></div>
-		<div>
+		<div><button class ="btn-theme">Add to Cart    <i class="fa-regular fa-cart-plus"></i></button></div>
+		<div class="stock">
 			<i class="fa-solid fa-circle red"></i>
 			<i class="fa-solid fa-circle yellow"></i>
 			<i class="fa-solid fa-circle green"></i>
-			<p>SKU: N/A</p>
+			<p> SKU: N/A</p>
 		</div>
 	</div>
 </div>
