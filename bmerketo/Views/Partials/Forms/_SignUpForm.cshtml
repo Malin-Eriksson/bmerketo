@@ -57,6 +57,19 @@
 			<small class="text-danger"><span asp-validation-for="ConfirmPassword"></span></small>
 		</div>
 
+		@if (signInManager.IsSignedIn(User) && User.IsInRole("admin"))
+		{
+			<div>
+				@foreach (SelectListItem tag in ViewBag.Tags)
+				{
+			@*		<div>
+						<input type="checkbox" name="Tags" id="tag-@tag.Text-@tag.Value" value="@tag.Value" checked="@tag.Selected" class="form-check-input" />
+						<label for="tag-@tag.Text-@tag.Value" class="form-check-label">@tag.Text</label>
+					</div>*@
+				}
+			</div>
+		}
+
 		<div class="mt-5">
 			<div class="d-grid">
 				<button type="submit" class="btn btn-success">SIGN UP</button>
