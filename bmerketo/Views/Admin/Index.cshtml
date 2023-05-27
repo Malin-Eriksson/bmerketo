@@ -15,6 +15,7 @@
 			<h2>Users</h2>
 			@foreach (var user in await adminService.GetUsersAsync())
 			{
+				<a asp-action="userdetails" asp-route-userid="@user.Id">
 				<div>
 					<div>
 						@user.Email
@@ -27,6 +28,7 @@
 						)
 					</div>
 				</div>
+				</a>
 			}
 		</div>
 	</div>

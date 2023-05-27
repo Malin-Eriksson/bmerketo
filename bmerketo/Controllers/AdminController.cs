@@ -1,6 +1,9 @@
-﻿using bmerketo.Services;
+﻿using bmerketo.Models.Entities;
+using bmerketo.Repositories;
+using bmerketo.Services;
 using bmerketo.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bmerketo.Controllers
@@ -10,12 +13,18 @@ namespace bmerketo.Controllers
 
     {
 		private readonly AuthService _auth;
+		private readonly UserRepo _userRepo;
+		private readonly UserManager<UserEntity> _userManager;
+		private readonly UserService _userService;
 
 
-		public AdminController(AuthService auth)
+
+		public AdminController(AuthService auth, UserRepo userRepo, UserManager<UserEntity> userManager, UserService userService)
 		{
 			_auth = auth;
-
+			_userRepo = userRepo;
+			_userManager = userManager;
+			_userService = userService;
 		}
 
 		public IActionResult Index()
@@ -23,7 +32,7 @@ namespace bmerketo.Controllers
             return View();
         }
 
-		public async Task<IActionResult> AdminSignUp()
+		public IActionResult AdminSignUp()
 		{
 			return View();
 		}
@@ -40,5 +49,27 @@ namespace bmerketo.Controllers
 			}
 			return View(model);
 		}
+
+
+		public IActionResult UserDetails(string userid)
+		{
+			return View((object)userid);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> UserDetails(string userId, string newRole)
+		{
+			if (string.IsNullOrEmpty(userId))
+			{
+				ModelState.TryAddModelError("userId", "User not found");
+				return View();
+			}
+
+			await _userService.UpdateUserRoleAsync(userId, newRole);
+			return RedirectToAction("Index");
+		}
+
+
+
 	}
 }
