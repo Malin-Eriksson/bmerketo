@@ -1,4 +1,7 @@
-﻿@model UserSignUpViewModel
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model UserSignUpViewModel
 
 <div class="sign-up d-flex justify-content-center">
 	<h1 class="display-4">Sign Up for new Account</h1>
@@ -8,7 +11,7 @@
 
 		<div class="mb-3">
 			<label asp-for="FirstName">First name</label>
-			<input asp-for="FirstName" class="form-control" onkeyup="validateText(event)" id="FirstName"/>
+			<input asp-for="FirstName" class="form-control" onkeyup="validateText(event)" id="FirstName" />
 			<small class="text-danger" data-valmsg-for="FirstName"><span asp-validation-for="FirstName"></span></small>
 		</div>
 		<div class="mb-3">
@@ -57,6 +60,19 @@
 			<small class="text-danger"><span asp-validation-for="ConfirmPassword"></span></small>
 		</div>
 
+		@if (signInManager.IsSignedIn(User) && User.IsInRole("admin"))
+		{
+			<div>
+				@foreach (SelectListItem tag in ViewBag.Tags)
+				{
+					@*		<div>
+			<input type="checkbox" name="Tags" id="tag-@tag.Text-@tag.Value" value="@tag.Value" checked="@tag.Selected" class="form-check-input" />
+			<label for="tag-@tag.Text-@tag.Value" class="form-check-label">@tag.Text</label>
+			</div>*@
+				}
+			</div>
+		}
+
 		<div class="mt-5">
 			<div class="d-grid">
 				<button type="submit" class="btn btn-success">SIGN UP</button>
@@ -66,3 +82,4 @@
 	</form>
 
 </div>
+

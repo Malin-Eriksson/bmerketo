@@ -40,14 +40,7 @@ public class UserSignUpViewModel
     public string City { get; set; } = null!;
 
 
-/*    public static implicit operator IdentityUser(UserSignUpViewModel model)
-    {
-        return new IdentityUser
-        {            
-            Email = model.Email,
-            PhoneNumber = model.PhoneNumber
-        };
-    }*/
+
 
     public static implicit operator UserEntity(UserSignUpViewModel model)
     {
