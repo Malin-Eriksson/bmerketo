@@ -64,6 +64,48 @@ public class AuthService
 		catch { return false; }
 	}
 
+	public async Task<bool> SignUpAsync(AdminSignUpViewModel model)
+	{
+		try
+		{
+			//Sets default role to user
+			await _seedService.SeedRoles();
+			var roleName = "user";
+
+			//If there's no users, the user created will be admin
+			if (!await _userManager.Users.AnyAsync())
+				roleName = "admin";
+
+
+			UserEntity userEntity = model;
+			var result = await _userManager.CreateAsync(userEntity, model.Password);
+
+			await _userManager.AddToRoleAsync(userEntity, roleName);
+
+			if (result.Succeeded)
+			{
+				var addressEntity = await _addressService.GetOrCreateAsync(model);
+				if (addressEntity != null)
+				{
+					await _addressService.AddUserAddressAsync(userEntity, addressEntity);
+					return true;
+				}
+
+			}
+
+			return false;
+
+			/*			UserEntity userEntity = model;
+						userEntity.UserId = identityUser.Id;
+
+						_identityContext.UserProfiles.Add(userEntity);
+						await _identityContext.SaveChangesAsync();
+
+						return true;*/
+		}
+		catch { return false; }
+	}
+
 	public async Task<bool> SignInAsync(UserSignInViewModel model)
 	{
 		try
