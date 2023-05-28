@@ -1,5 +1,14 @@
 .sign-up {
     padding: 20px 0 60px 0;
+    display: flex;
+    justify-content: center;
+
+
+    h1 {
+        margin-bottom: 50px;
+        text-align: center;
+        color: $color-theme-1;
+    }
 
     @include lg {
         padding: 120px 0;

@@ -1,39 +1,39 @@
 ﻿
 @model AdminSignUpViewModel
 
-<div class="sign-up d-flex justify-content-center">
-	<h1 class="display-4">Sign Up for new Account</h1>
+<div class="sign-up">
+	
 	<form enctype="multipart/form-data" method="post" class="col-10 col-xl-6" novalidate>
-
+		<h1>New Account</h1>
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 		<div class="mb-3">
-			<label asp-for="FirstName">First name</label>
+			<label asp-for="FirstName">First name (optional)</label>
 			<input asp-for="FirstName" class="form-control" onkeyup="validateText(event)" id="FirstName" />
 			<small class="text-danger" data-valmsg-for="FirstName"><span asp-validation-for="FirstName"></span></small>
 		</div>
 		<div class="mb-3">
-			<label asp-for="LastName">Last name</label>
+			<label asp-for="LastName">Last name (optional)</label>
 			<input asp-for="LastName" class="form-control"/>
 			<small class="text-danger" data-valmsg-for="LastName"><span asp-validation-for="LastName"></span></small>
 		</div>
 		<div class="mb-3">
-			<label asp-for="StreetName">Street address</label>
+			<label asp-for="StreetName">Street address (optional)</label>
 			<input asp-for="StreetName" class="form-control" onkeyup="validateText(event)" id="StreetAddress" />
 			<small class="text-danger" data-valmsg-for="StreetAddress"><span asp-validation-for="StreetName"></span></small>
 		</div>
 		<div class="mb-3">
-			<label asp-for="PostalCode">Postal code</label>
+			<label asp-for="PostalCode">Postal code (optional)</label>
 			<input asp-for="PostalCode" class="form-control" onkeyup="validateText(event)" id="PostalCode" />
 			<small class="text-danger" data-valmsg-for="PostalCode"><span asp-validation-for="PostalCode"></span></small>
 		</div>
 		<div class="mb-3">
-			<label asp-for="City">City</label>
+			<label asp-for="City">City (optional)</label>
 			<input asp-for="City" class="form-control" onkeyup="validateText(event)" id="City" />
 			<small class="text-danger" data-valmsg-for="City"><span asp-validation-for="City"></span></small>
 		</div>
 		<div class="mb-3">
-			<label asp-for="PhoneNumber">Phone number</label>
+			<label asp-for="PhoneNumber">Phone number (optional)</label>
 			<input asp-for="PhoneNumber" class="form-control" onkeyup="validateText(event)" id="PhoneNumber" />
 			<small class="text-danger" data-valmsg-for="PhoneNumber"><span asp-validation-for="PhoneNumber"></span></small>
 		</div>
@@ -65,7 +65,7 @@
 
 		<div class="mt-5">
 			<div class="d-grid">
-				<button type="submit" class="btn btn-success">SIGN UP</button>
+				<button type="submit" class="btn btn-theme">ADD USER</button>
 			</div>
 		</div>
 
