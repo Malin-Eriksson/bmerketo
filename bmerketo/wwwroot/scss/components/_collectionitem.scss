@@ -27,9 +27,7 @@
         .info {
             font-family: $font-poppins;
             padding: 2px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
             height: 40px;
 
             .price {
@@ -70,4 +68,12 @@
             }
         }
     }
+}
+
+.product-display {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-content: center;
+
 }

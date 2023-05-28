@@ -2,25 +2,28 @@
 
 
 
-<div class="container sign-up mt-10 d-flex justify-content-center">
-	<h1 class="display-4">Sign In</h1>
+<div class="container form">
+	
 	<form method="post" class="col-10 col-xl-6" novalidate>
-
+		<h2>Please Sign In to Your Account</h2>
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 		<div class="mb-3">
-				<label asp-for="Email">Email* </label><a class="link" asp-controller="Account" asp-action="SignUp"> Don't have an account yet? </a>
-			<input asp-for="Email" class="form-control" />
+			<div class="email">
+				<label asp-for="Email" onkeyup="validateEmail(event)" id="Email">Email </label>
+				<a class="link" asp-controller="Account" asp-action="SignUp"> Don't have an account yet? </a>
+			</div>
+			<input asp-for="Email" class="form-control" onkeyup="validateEmail(event)" id="Email" />
 			<small class="text-danger"><span asp-validation-for="Email"></span></small>
 		</div>
 		<div class="mb-3">
-			<label asp-for="Password">Password*</label>
-			<input asp-for="Password" class="form-control" />
+			<label asp-for="Password">Password</label>
+			<input asp-for="Password" class="form-control" onkeyup="validatePassword(event)" id="Password" />
 			<small class="text-danger"><span asp-validation-for="Password"></span></small>
 		</div>
 		<div class="mt-5">
 			<div class="d-grid">
-				<button type="submit" class="btn btn-success">SIGN IN</button>
+				<button type="submit" class="btn btn-theme">SIGN IN</button>
 			</div>
 		</div>
 	</form>

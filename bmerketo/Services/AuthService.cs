@@ -53,13 +53,6 @@ public class AuthService
 
 			return null!;
 
-/*			UserEntity userEntity = model;
-			userEntity.UserId = identityUser.Id;
-
-			_identityContext.UserProfiles.Add(userEntity);
-			await _identityContext.SaveChangesAsync();
-
-			return true;*/
 		} 
 		catch { return null!; }
 	}
@@ -95,13 +88,6 @@ public class AuthService
 
 			return null!;
 
-			/*			UserEntity userEntity = model;
-						userEntity.UserId = identityUser.Id;
-
-						_identityContext.UserProfiles.Add(userEntity);
-						await _identityContext.SaveChangesAsync();
-
-						return true;*/
 		}
 		catch { return null!; }
 	}

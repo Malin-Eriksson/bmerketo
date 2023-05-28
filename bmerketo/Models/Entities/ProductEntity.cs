@@ -17,11 +17,9 @@ public partial class ProductEntity
 	public string? ImageUrl { get; set; } = null!;
 
 
-
 	public ICollection<ProductTagEntity> ProductTags { get; set; } = new HashSet<ProductTagEntity>();
 
 	
-
 
 	public static implicit operator ProductModel(ProductEntity entity)
 	{
@@ -34,6 +32,5 @@ public partial class ProductEntity
 			ImageUrl = entity.ImageUrl
 			
 		};
-	}
-	
+	}	
 }

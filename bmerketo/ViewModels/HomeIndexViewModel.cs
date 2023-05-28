@@ -1,6 +1,4 @@
-﻿using bmerketo.Models;
-
-namespace bmerketo.ViewModels;
+﻿namespace bmerketo.ViewModels;
 
 public class HomeIndexViewModel
 {

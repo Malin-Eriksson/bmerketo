@@ -1,42 +1,6 @@
 ﻿@inject AdminService adminService
 
-
-
-@{ ViewData["Title"] = "Admin - Dashboard"; }
-
-
-
-<div class="container">
-	<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-
-	<h1>Admin - Dashboard</h1>
-	<div class ="d-flex container">
-		<div>
-			<h2>Users</h2>
-			@foreach (var user in await adminService.GetUsersAsync())
-			{
-				<a asp-action="userdetails" asp-route-userid="@user.Id">
-				<div>
-					<div>
-						@user.Email
-						(
-						@foreach (var roleName in user.RoleNames)
-						{
-							<span>@roleName</span>
-
-						}
-						)
-					</div>
-				</div>
-				</a>
-			}
-		</div>
-	</div>
-	<div>
-		<a asp-action="AdminSignUp" asp-controller="Admin">Add new user</a>
-		<a asp-action="AddProduct" asp-controller="Products">Add new product</a>
-	</div>
-</div>
+<partial name="/Views/Partials/_Admin.cshtml" />
 
 
 

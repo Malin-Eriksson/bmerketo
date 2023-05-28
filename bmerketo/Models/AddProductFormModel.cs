@@ -24,29 +24,22 @@ public class AddProductFormModel
 
 
 
-
-
     [DataType(DataType.Upload)]
     public IFormFile? Image { get; set; } = null!;
 
     public static implicit operator ProductEntity(AddProductFormModel model)
     {
-
-
         var entity = new ProductEntity
 		{
             ArticleNumber = model.ArticleNumber,
 			Name = model.Name,
 			Description = model.Description,
-			Price = model.Price
-			
+			Price = model.Price			
 		};
 
         if (model.Image != null)
             entity.ImageUrl = $"{Guid.NewGuid()}_{model.Image?.FileName}";
 
         return entity;
-
 	}
-
 }

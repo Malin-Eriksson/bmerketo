@@ -45,7 +45,7 @@ public class CustomClaimsPrincipalFactory : UserClaimsPrincipalFactory<UserEntit
         claimsIdentity.AddClaim(new Claim("ProfilePicture", user.ProfilePicture ?? ""));
 
 		claimsIdentity.AddClaim(new Claim("Street", address.StreetName ?? ""));
-		claimsIdentity.AddClaim(new Claim("PostalCity",$"{address.PostalCode}  {address.City}" ?? ""));
+		claimsIdentity.AddClaim(new Claim("PostalCity", $"{address.PostalCode} {address.City}" ?? ""));
 
 
 

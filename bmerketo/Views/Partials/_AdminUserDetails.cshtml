@@ -1,0 +1,34 @@
+﻿@model string
+@inject UserRepo userRepo
+@inject UserAddressRepo userAddressRepo
+@inject AddressRepo addressRepo
+@inject AdminService adminService
+@inject UserManager<UserEntity> userManager
+
+@{
+	var user = await userRepo.GetAsync(x => x.Id == Model);
+	var role = await userManager.GetRolesAsync(user);
+	var userAddress = await userAddressRepo.GetAsync(x => x.UserId == user.Id);
+	var address = await addressRepo.GetAsync(x => x.Id == userAddress.AddressId);
+}
+
+
+<div class="container admin-user-details">
+	<div><img src="~/images/profile/@user.ProfilePicture" /></div>
+	<div class="italic">@Model</div>
+	<div class="bold">@user.FirstName @user.LastName</div>
+	<div class="bold"> @user.Email (@role.FirstOrDefault())</div>
+	<div>@address.StreetName</div>
+	<div>@address.PostalCode @address.City</div>
+	<div>@user.Company</div>
+
+	<form method="post">
+		<h3>Update role:</h3>
+		<input type="hidden" name="userId" value="@user.Id" />
+		<select id="role-select" name="newRole">
+			<option value="user">User</option>
+			<option value="admin">Admin</option>
+		</select>
+		<button type="submit" class="btn btn-theme">Save</button>
+	</form>
+</div>

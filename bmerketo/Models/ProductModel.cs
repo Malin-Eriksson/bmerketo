@@ -14,7 +14,5 @@ public class ProductModel
 
 	public string?[] ProductTags { get; set; } = null!;
 
-	public string? ImageUrl { get; set; }
-
-	
+	public string? ImageUrl { get; set; }	
 }

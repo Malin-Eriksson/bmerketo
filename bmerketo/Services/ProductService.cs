@@ -31,13 +31,14 @@ public class ProductService
 		if(_entity == null)
 		{
 			_entity = await _productRepo.AddAsync(entity);
-			/*if (_entity != null);*/
 				
 		}
 		return entity;
 	}
 
-	public async Task AddProductTagsAsync(ProductEntity entity, string[] tags)
+
+ 
+    public async Task AddProductTagsAsync(ProductEntity entity, string[] tags)
 	{
 		foreach (var tag in tags)
 		{
@@ -50,10 +51,6 @@ public class ProductService
 	}
 
 
-/*	public async Task<IEnumerable<ProductEntity>> GetAllAsync()
-	{
-		return await _productRepo.GetAllAsync();
-	}*/
 
 
 	public async Task<bool> UploadImageAsync(ProductModel product, IFormFile image)

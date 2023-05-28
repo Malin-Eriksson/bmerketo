@@ -16,6 +16,7 @@ namespace bmerketo.Controllers
 			_userService = userService;
 		}
 
+
 		[Authorize]
         public IActionResult Index()
         {
@@ -42,10 +43,8 @@ namespace bmerketo.Controllers
 
 					return RedirectToAction("SignIn");
 				}
-
                 ModelState.AddModelError("", "A user with the same email already exists");
             }
-
             return View(model);
         }
 
@@ -61,7 +60,7 @@ namespace bmerketo.Controllers
             if (ModelState.IsValid)
             {
                 if (await _auth.SignInAsync(model))
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
 
                 ModelState.AddModelError("", "Incorrect email or password");
             }

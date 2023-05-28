@@ -1,0 +1,40 @@
+﻿@inject AdminService adminService
+
+@{
+	ViewData["Title"] = "Admin - Dashboard";
+}
+
+
+<div class="container admin">
+	<div>
+		<h2>Admin - Dashboard</h2>
+	</div>
+	<div class="links">
+		<a asp-action="AddProduct" asp-controller="Products"><input class="btn  linkbtn" type="button" value="Add new product" /></a>
+		<a asp-action="AdminSignUp" asp-controller="Admin"><input class="btn  linkbtn" type="button" value="Add new user" /></a>
+	</div>
+	<div>
+		<div class="users">
+			<div><h3>Users</h3></div>
+
+		</div>
+		<div class="usersdisplay">
+			@foreach (var user in await adminService.GetUsersAsync())
+			{
+				<a asp-action="userdetails" asp-route-userid="@user.Id">
+					<div>
+						@user.Email
+						(
+						@foreach (var roleName in user.RoleNames)
+						{
+							<span>@roleName</span>
+
+						}
+						)
+					</div>
+				</a>
+			}
+		</div>
+	</div>
+</div>
+

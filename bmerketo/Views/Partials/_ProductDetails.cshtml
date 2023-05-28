@@ -1,0 +1,81 @@
+﻿@model string
+@inject ProductRepo productRepo
+
+@{
+	var product = await productRepo.GetAsync(x => x.ArticleNumber == Model);
+}
+
+<img src="/images/placeholders/1920x300.svg" />
+
+<div class="product-details container">
+	<div class="images">
+		<div><img src="~/images/products/@product.ImageUrl" alt="@product.Name" class="main-image" /></div>
+		<div class="extra-images">
+			<img src="~/images/placeholders/120x113.svg" alt="@product.Name" class="extra-image" />
+			<img src="~/images/placeholders/120x113.svg" alt="@product.Name" class="extra-image" />
+			<img src="~/images/placeholders/120x113.svg" alt="@product.Name" class="extra-image" />
+			<img src="~/images/placeholders/120x113.svg" alt="@product.Name" class="extra-image" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<h2>@product.Name</h2>
+			<small>@Model</small>
+			<p>@product.Description</p>
+		</div>
+		<div>
+			<i class="fa-solid fa-star rating"></i>
+			<i class="fa-solid fa-star rating"></i>
+			<i class="fa-solid fa-star rating"></i>
+			<i class="fa-solid fa-star rating"></i>
+			<i class="fa-solid fa-star rating"></i>
+			16 Reviews
+		</div>
+		<div class="price">$@product.Price</div>
+		<div><button class="btn-theme">Add to Cart    <i class="fa-regular fa-cart-plus"></i></button></div>
+		<div class="stock">
+			<i class="fa-solid fa-circle red"></i>
+			<i class="fa-solid fa-circle yellow"></i>
+			<i class="fa-solid fa-circle green"></i>
+			<p> SKU: N/A</p>
+		</div>
+	</div>
+</div>
+
+<div class="extra-info container">
+	<div class="extra-info-text">
+		<h2>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie.</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	</div>
+	<div><img src="~/images/placeholders/469x356.svg" /></div>
+
+</div>
+
+<div class="container">
+	<h2>Related Products</h2>
+	<div class="related-products">
+		<div>
+			<img src="/images/placeholders/270x295.svg" />
+			<p>Related Product</p>
+			<small>£80.00</small>
+		</div>
+		<div>
+			<img src="/images/placeholders/270x295.svg" />
+			<p>Related Product</p>
+			<small>£80.00</small>
+		</div>
+		<div>
+			<img src="/images/placeholders/270x295.svg" />
+			<p>Related Product</p>
+			<small>£80.00</small>
+		</div>
+		<div>
+			<img src="/images/placeholders/270x295.svg" />
+			<p>Related Product</p>
+			<small>£80.00</small>
+		</div>
+	</div>
+</div>
+
+
+

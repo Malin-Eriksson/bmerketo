@@ -1,59 +1,49 @@
 ﻿@model AddProductViewModel
 
-@{
-	ViewData["Title"] = "Product Registration";
-}
+<div class="form addproduct">
+	<form enctype="multipart/form-data" method="post" class="col-10 col-xl-6" novalidate>
+		<h2>Add New Product</h2>
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<div class="d-flex justify-content-center mt-50 pt-50">
-	<div class="col-6">
-		<form enctype="multipart/form-data" method="post" novalidate>
-
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-			<div class="mb-3 pt-50">
-				<label asp-for="ArticleNumber" class="form-label">Article number:</label>
-				<input asp-for="ArticleNumber" class="form-control" />
-				<small><span asp-validation-for="ArticleNumber" class="text-danger"></span></small>
+		<div class="mb-3">
+			<label asp-for="ArticleNumber" >Article number:</label>
+			<input asp-for="ArticleNumber" class="form-control" onkeyup="validateText(event)" id="ArticleNumber" />
+			<small class="text-danger"><span asp-validation-for="ArticleNumber"></span></small>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Name" >Product name:</label>
+			<input asp-for="Name" class="form-control" onkeyup="validateText(event)" id="Name" />
+			<small class="text-danger"><span asp-validation-for="Name"></span></small>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Price" >Price:</label>
+			<input asp-for="Price" class="form-control" onkeyup="validateText(event)" id="Price" />
+			<small class="text-danger"><span asp-validation-for="Price"></span></small>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Description" >Product description (optional):</label>
+			<textarea asp-for="Description" class="form-control" rows="4" onkeyup="validateText(event)" id="Description"></textarea>
+			<small class="text-danger"><span asp-validation-for="Description"></span></small>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Image" ></label>
+			<input asp-for="Image" class="form-control" rows="4" />
+			<small class="text-danger"><span asp-validation-for="Image"></span></small>
+		</div>
+		<div class ="mb-3">
+			<label>Tags</label>
+			@foreach (SelectListItem tag in ViewBag.Tags)
+			{
+				<div class="tags">
+					<input type="checkbox" name="Tags" id="tag-@tag.Text-@tag.Value" value="@tag.Value" checked="@tag.Selected" class="form-check-input" />
+					<label for="tag-@tag.Text-@tag.Value" class="form-check-label">@tag.Text</label>
+				</div>
+			}
+		</div>			
+		<div class="mt-5">
+			<div class="d-grid">
+				<button type="submit" class="btn btn-theme">ADD PRODUCT</button>
 			</div>
-
-			<div class="mb-3 pt-50">
-				<label asp-for="Name" class="form-label">Product name:</label>
-				<input asp-for="Name" class="form-control" />
-				<small><span asp-validation-for="Name" class="text-danger"></span></small>
-			</div>
-
-			<div class="mb-3">
-				<label asp-for="Price" class="form-label">Price:</label>
-				<input asp-for="Price" class="form-control" />
-				<small><span asp-validation-for="Price" class="text-danger"></span></small>
-			</div>
-
-			<div class="mb-3">
-				<label asp-for="Description" class="form-label">Product description (optional):</label>
-				<textarea asp-for="Description" class="form-control" rows="4"></textarea>
-				<small><span asp-validation-for="Description" class="text-danger"></span></small>
-			</div>
-
-			<div class="mb-3">
-				<label asp-for="Image" class="form-label"></label>
-				<input asp-for="Image" class="form-control" rows="4" />
-				<small><span asp-validation-for="Image" class="text-danger"></span></small>
-			</div>
-
-			<div>
-				@foreach (SelectListItem tag in ViewBag.Tags)
-				{
-					<div>
-						<input type="checkbox" name="Tags" id="tag-@tag.Text-@tag.Value" value="@tag.Value" checked="@tag.Selected" class="form-check-input" />
-						<label for="tag-@tag.Text-@tag.Value" class="form-check-label">@tag.Text</label>
-					</div>
-				}
-			</div>
-			
-			<div class="grid mt-2">
-				<button type="submit">ADD PRODUCT</button>
-			</div>
-
-		</form>
-	</div>
+		</div>
+	</form>
 </div>

@@ -4,16 +4,15 @@ using System.ComponentModel.DataAnnotations;
 namespace bmerketo.ViewModels;
 
 public class AdminSignUpViewModel
-{
-	
-	public string? FirstName { get; set; } = null!;
-
-	
+{	
+	public string? FirstName { get; set; } = null!;	
 	public string? LastName { get; set; } = null!;
+
 
 	[Required(ErrorMessage = "Email address is required")]
 	[DataType(DataType.EmailAddress)]
 	public string Email { get; set; } = null!;
+
 
 	[Required(ErrorMessage = "Password is required")]
 	[DataType(DataType.Password)]
@@ -22,22 +21,26 @@ public class AdminSignUpViewModel
 	[Required(ErrorMessage = "Confirm password")]
 	[DataType(DataType.Password)]
 	[Compare(nameof(Password))]
+
 	public string ConfirmPassword { get; set; } = null!;
 
 	public string? PhoneNumber { get; set; } = null!;
 
 	public string? Company { get; set; } = null!;
 
+
 	[Display(Name = "Uplad Profile Picture")]
 	[DataType(DataType.Upload)]
 	public IFormFile? ProfilePicture { get; set; }
 
+
 	public string? StreetName { get; set; } = null!;
+
 
 	public string? PostalCode { get; set; } = null!;
 
-	public string? City { get; set; } = null!;
 
+	public string? City { get; set; } = null!;
 
 
 
@@ -51,13 +54,10 @@ public class AdminSignUpViewModel
 			FirstName = model.FirstName,
 			LastName = model.LastName,
 			Company = model.Company
-
-
 		};
 
 		if (model.ProfilePicture != null)
 			entity.ProfilePicture = $"{model.Email}_{model.ProfilePicture?.FileName}";
-
 		return entity;
 	}
 
@@ -68,8 +68,6 @@ public class AdminSignUpViewModel
 			StreetName = model.StreetName,
 			PostalCode = model.PostalCode,
 			City = model.City
-
 		};
 	}
-
 }

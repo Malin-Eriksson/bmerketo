@@ -11,10 +11,8 @@ public class MyAccountViewModel
 	public string Email { get; set; } = null!;
 	public string? Company { get; set; }
 	public string? ProfileImage { get; set; }
-
 	public ICollection<UserAddressEntity> Addresses { get; set; } = new HashSet<UserAddressEntity>();
 	public ICollection<string> Roles { get; set; } = new List<string>();
-
 
 
 

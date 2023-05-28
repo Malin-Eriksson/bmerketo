@@ -76,8 +76,5 @@ namespace bmerketo.Controllers
 			await _userService.UpdateUserRoleAsync(userId, newRole);
 			return RedirectToAction("Index");
 		}
-
-
-
 	}
 }

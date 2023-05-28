@@ -1,10 +1,10 @@
 ﻿
 @model AdminSignUpViewModel
 
-<div class="sign-up">
+<div class="form">
 	
 	<form enctype="multipart/form-data" method="post" class="col-10 col-xl-6" novalidate>
-		<h1>New Account</h1>
+		<h2>New Account</h2>
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 		<div class="mb-3">
@@ -14,7 +14,7 @@
 		</div>
 		<div class="mb-3">
 			<label asp-for="LastName">Last name (optional)</label>
-			<input asp-for="LastName" class="form-control"/>
+			<input asp-for="LastName" class="form-control" onkeyup="validateText(event)" id="LastName" />
 			<small class="text-danger" data-valmsg-for="LastName"><span asp-validation-for="LastName"></span></small>
 		</div>
 		<div class="mb-3">
@@ -54,7 +54,7 @@
 		</div>
 		<div class="mb-3">
 			<label asp-for="ConfirmPassword">Confirm password</label>
-			<input asp-for="ConfirmPassword" class="form-control" />
+			<input asp-for="ConfirmPassword" class="form-control" onkeyup="validatePassword(event)" id="ConfirmPassword" />
 			<small class="text-danger"><span asp-validation-for="ConfirmPassword"></span></small>
 		</div>
 		<div class="mb-3">

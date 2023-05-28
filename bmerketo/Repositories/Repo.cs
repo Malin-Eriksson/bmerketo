@@ -14,6 +14,7 @@ public abstract class Repo<TEntity> where TEntity : class
 		_context = context;
 	}
 
+
 	public virtual async Task<TEntity> AddAsync(TEntity entity)
 	{
 		try
@@ -22,40 +23,11 @@ public abstract class Repo<TEntity> where TEntity : class
 			await _context.SaveChangesAsync();
 
 			return entity;
-
 		}
 		catch (Exception ex) { Debug.WriteLine(ex.Message); }
-		return null!;
-
+			return null!;
 	}
 
-	public virtual async Task<TEntity> UpdateAsync(TEntity entity)
-	{
-		try
-		{
-			_context.Set<TEntity>().Update(entity);
-			await _context.SaveChangesAsync();
-
-			return entity;
-		}
-		catch (Exception ex) { Debug.WriteLine(ex.Message); }
-		return null!;
-
-	}
-
-	public virtual async Task<TEntity> DeleteAsync(TEntity entity)
-	{
-		try
-		{
-			_context.Set<TEntity>().Remove(entity);
-			await _context.SaveChangesAsync();
-
-			return entity;
-		}
-		catch (Exception ex) { Debug.WriteLine(ex.Message); }
-		return null!;
-
-	}
 
 	public virtual async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
 	{
@@ -66,11 +38,8 @@ public abstract class Repo<TEntity> where TEntity : class
 			return entity!;
 		}
 		catch (Exception ex) { Debug.WriteLine(ex.Message); }
-		return null!;
-
+			return null!;
 	}
-
-	
 
 
 
@@ -83,10 +52,6 @@ public abstract class Repo<TEntity> where TEntity : class
 				return entities;
 		}
 		catch (Exception ex) { Debug.WriteLine(ex.Message); }
-		return null!;
-
+			return null!;
 	}
-
-
-
 }

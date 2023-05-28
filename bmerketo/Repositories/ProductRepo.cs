@@ -19,7 +19,7 @@ namespace bmerketo.Repositories
 			return products;
 		}
 
-		public override async Task<ProductEntity> GetAsync(Expression<Func<ProductEntity, bool>> expression)
+        public override async Task<ProductEntity> GetAsync(Expression<Func<ProductEntity, bool>> expression)
 		{
 			var product = await _context.Products.Include(x => x.ProductTags).ThenInclude(x => x.Tag).FirstOrDefaultAsync(expression);
 			return product!;
