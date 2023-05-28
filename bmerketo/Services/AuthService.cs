@@ -22,7 +22,7 @@ public class AuthService
 		_userManager = userManager;
 	}
 
-	public async Task<bool> SignUpAsync(UserSignUpViewModel model)
+	public async Task<UserEntity> SignUpAsync(UserSignUpViewModel model)
 	{
 		try
 		{
@@ -46,12 +46,12 @@ public class AuthService
 				if (addressEntity != null)
 				{
 					await _addressService.AddUserAddressAsync(userEntity, addressEntity);
-					return true;
+					return model;
 				}
 
 			}
 
-			return false;
+			return null!;
 
 /*			UserEntity userEntity = model;
 			userEntity.UserId = identityUser.Id;
@@ -61,10 +61,10 @@ public class AuthService
 
 			return true;*/
 		} 
-		catch { return false; }
+		catch { return null!; }
 	}
 
-	public async Task<bool> SignUpAsync(AdminSignUpViewModel model)
+	public async Task<UserEntity> SignUpAsync(AdminSignUpViewModel model)
 	{
 		try
 		{
@@ -88,12 +88,12 @@ public class AuthService
 				if (addressEntity != null)
 				{
 					await _addressService.AddUserAddressAsync(userEntity, addressEntity);
-					return true;
+					return model;
 				}
 
 			}
 
-			return false;
+			return null!;
 
 			/*			UserEntity userEntity = model;
 						userEntity.UserId = identityUser.Id;
@@ -103,7 +103,7 @@ public class AuthService
 
 						return true;*/
 		}
-		catch { return false; }
+		catch { return null!; }
 	}
 
 	public async Task<bool> SignInAsync(UserSignInViewModel model)

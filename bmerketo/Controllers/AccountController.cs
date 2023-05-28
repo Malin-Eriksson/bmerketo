@@ -8,13 +8,15 @@ namespace bmerketo.Controllers
     public class AccountController : Controller
     {
         private readonly AuthService _auth;
+        private readonly UserService _userService;
 
-        public AccountController(AuthService auth)
-        {
-            _auth = auth;
-        }
+		public AccountController(AuthService auth, UserService userService)
+		{
+			_auth = auth;
+			_userService = userService;
+		}
 
-        [Authorize]
+		[Authorize]
         public IActionResult Index()
         {
             return View();
@@ -31,8 +33,15 @@ namespace bmerketo.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await _auth.SignUpAsync(model))
-                    return RedirectToAction("SignIn");
+                var user = await _auth.SignUpAsync(model);
+
+                if (user != null)
+                {
+					if (model.ProfilePicture != null)
+						await _userService.UploadImageAsync(user, model.ProfilePicture!);
+
+					return RedirectToAction("SignIn");
+				}
 
                 ModelState.AddModelError("", "A user with the same email already exists");
             }

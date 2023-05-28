@@ -1,4 +1,4 @@
-﻿namespace bmerketo.Models;
+﻿/*namespace bmerketo.Models;
 
 public class UserModel
 {
@@ -7,4 +7,7 @@ public class UserModel
 	public string? StreetName { get; set; }
 	public string? PostalCode { get; set; }
 	public string? City { get; set; }
+	public string? Company { get; set; }
+	public string? ProfilePicture { get; set; }
 }
+*/

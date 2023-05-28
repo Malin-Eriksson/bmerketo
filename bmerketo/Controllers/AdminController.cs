@@ -42,11 +42,19 @@ namespace bmerketo.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				if (await _auth.SignUpAsync(model))
+				var user = await _auth.SignUpAsync(model);
+
+				if (user != null)
+				{
+					if (model.ProfilePicture != null)
+						await _userService.UploadImageAsync(user, model.ProfilePicture!);
+
 					return RedirectToAction("Index");
+				}
 
 				ModelState.AddModelError("", "A user with the same email already exists");
 			}
+
 			return View(model);
 		}
 

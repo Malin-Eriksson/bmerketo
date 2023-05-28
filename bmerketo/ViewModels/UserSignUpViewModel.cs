@@ -44,7 +44,7 @@ public class UserSignUpViewModel
 
     public static implicit operator UserEntity(UserSignUpViewModel model)
     {
-        return new UserEntity
+        var entity = new UserEntity
         {
             UserName = model.Email,
             Email = model.Email,
@@ -52,9 +52,13 @@ public class UserSignUpViewModel
             FirstName = model.FirstName,
             LastName = model.LastName,
             Company = model.Company
-        
 
         };
+
+        if (model.ProfilePicture != null)
+            entity.ProfilePicture = $"{model.Email}_{model.ProfilePicture?.FileName}";
+
+        return entity;
     }
 
     public static implicit operator AddressEntity(UserSignUpViewModel model)

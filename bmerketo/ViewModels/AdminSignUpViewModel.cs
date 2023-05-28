@@ -43,7 +43,7 @@ public class AdminSignUpViewModel
 
 	public static implicit operator UserEntity(AdminSignUpViewModel model)
 	{
-		return new UserEntity
+		var entity = new UserEntity
 		{
 			UserName = model.Email,
 			Email = model.Email,
@@ -54,6 +54,11 @@ public class AdminSignUpViewModel
 
 
 		};
+
+		if (model.ProfilePicture != null)
+			entity.ProfilePicture = $"{model.Email}_{model.ProfilePicture?.FileName}";
+
+		return entity;
 	}
 
 	public static implicit operator AddressEntity(AdminSignUpViewModel model)

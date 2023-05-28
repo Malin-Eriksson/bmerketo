@@ -1,6 +1,9 @@
 ﻿using bmerketo.Contexts;
+using bmerketo.Models;
 using bmerketo.Models.Entities;
 using bmerketo.Repositories;
+using bmerketo.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,13 +14,15 @@ public class UserService
     private readonly IdentityContext _identityContext;
     private readonly UserRepo _userRepo;
 	private readonly UserManager<UserEntity> _userManager;
+	private readonly IWebHostEnvironment _webHostEnvironment;
 
 
-	public UserService(IdentityContext identityContext, UserRepo userRepo, UserManager<UserEntity> userManager)
+	public UserService(IdentityContext identityContext, UserRepo userRepo, UserManager<UserEntity> userManager, IWebHostEnvironment webHostEnvironment)
 	{
 		_identityContext = identityContext;
 		_userRepo = userRepo;
 		_userManager = userManager;
+		_webHostEnvironment = webHostEnvironment;
 	}
 
 
@@ -40,6 +45,17 @@ public class UserService
 			return true;
 		}
 		return false;
+	}
+
+	public async Task<bool> UploadImageAsync(UserEntity user, IFormFile profilePicture)
+	{
+		try
+		{
+			string imagePath = $"{_webHostEnvironment.WebRootPath}/images/profile/{user.ProfilePicture}";
+			await profilePicture.CopyToAsync(new FileStream(imagePath, FileMode.Create));
+			return true;
+		}
+		catch { return false; }
 	}
 
 }
